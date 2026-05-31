@@ -6,7 +6,7 @@
     "affiliation": "Tsinghua University",
     "location": "Beijing, China",
     "email": "wangsiyi23@mails.tsinghua.edu.cn",
-    "avatar": "/images/profile.jpg",
+    "avatar": "/images/profile.png",
     "tagline": "Speech and audio large language models, multimodal interaction, and speech quality evaluation.",
     "researchInterests": [
       "Speech and Audio LLMs",
@@ -201,8 +201,8 @@
   ],
   "service": [
     {
-      "title": "Academic Community",
-      "description": "Academic service and reviewing records can be maintained here through the admin editor."
+      "title": "Reviewer Service",
+      "description": "ICASSP, ASRU, SLT, ACL ARR, IEEE TASLP, ICLR, ICML, NeurIPS"
     }
   ]
 }
