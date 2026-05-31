@@ -1,1 +1,10 @@
-{% assign base_path = site.baseurl | default: "" %}
+{% assign base_path = "." %}
+{% unless page.url == "/" %}
+  {% assign page_parts = page.url | remove_first: "/" | split: "/" %}
+  {% assign page_depth = page_parts | size %}
+  {% if page_depth > 0 %}
+    {% for i in (1..page_depth) %}
+      {% assign base_path = base_path | append: "/.." %}
+    {% endfor %}
+  {% endif %}
+{% endunless %}
