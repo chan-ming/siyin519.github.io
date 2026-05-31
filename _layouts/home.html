@@ -4,6 +4,7 @@ layout: default
 
 {% include base_path %}
 {% assign home = site.data.homepage %}
+{% assign sections = home.sections %}
 {% assign profile_avatar = home.profile.avatar | default: "/images/profile.png" %}
 
 <script id="homepage-data" type="application/json">{{ home | jsonify }}</script>
@@ -37,18 +38,24 @@ layout: default
   </section>
 
   <nav class="home-jump-nav" aria-label="Home sections">
-    <a href="#about">About</a>
-    <a href="#news">News</a>
-    <a href="#publications">Publications</a>
-    <a href="#education">Education</a>
-    <a href="#experience">Experience</a>
-    <a href="#service">Academic Service</a>
+    <a href="#about">{{ sections.about.title | default: "About" }}</a>
+    <a href="#news">{{ sections.news.title | default: "News" }}</a>
+    <a href="#publications">{{ sections.publications.filteredTitle | default: sections.publications.title | default: "Publications" }}</a>
+    <a href="#education">{{ sections.education.title | default: "Education" }}</a>
+    <a href="#experience">{{ sections.experience.title | default: "Experience" }}</a>
+    <a href="#service">{{ sections.service.title | default: "Academic Service" }}</a>
   </nav>
 
-  <section class="home-section home-about" id="about" aria-labelledby="about-heading">
+  <section class="home-section home-about" id="about" aria-labelledby="about-heading" style="--section-title-size: {{ sections.about.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.about.bodyFontSize | default: '1rem' | escape }};">
     <div class="home-section__header">
-      <p class="home-section__kicker">About</p>
-      <h2 id="about-heading">About Me</h2>
+      {% assign about_kicker = "About" %}
+      {% if sections.about.kicker != nil %}
+        {% assign about_kicker = sections.about.kicker %}
+      {% endif %}
+      {% if about_kicker != "" %}
+        <p class="home-section__kicker">{{ about_kicker }}</p>
+      {% endif %}
+      <h2 id="about-heading">{{ sections.about.title | default: "About Me" }}</h2>
     </div>
     <div class="home-about__body">
       {% for paragraph in home.about %}
@@ -65,10 +72,16 @@ layout: default
   </section>
 
   {% if home.news and home.news.size > 0 %}
-    <section class="home-section" id="news" aria-labelledby="news-heading">
+    <section class="home-section" id="news" aria-labelledby="news-heading" style="--section-title-size: {{ sections.news.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.news.bodyFontSize | default: '1rem' | escape }};">
       <div class="home-section__header">
-        <p class="home-section__kicker">Updates</p>
-        <h2 id="news-heading">News</h2>
+        {% assign news_kicker = "Updates" %}
+        {% if sections.news.kicker != nil %}
+          {% assign news_kicker = sections.news.kicker %}
+        {% endif %}
+        {% if news_kicker != "" %}
+          <p class="home-section__kicker">{{ news_kicker }}</p>
+        {% endif %}
+        <h2 id="news-heading">{{ sections.news.title | default: "News" }}</h2>
       </div>
       <ol class="home-news">
         {% for item in home.news %}
@@ -85,11 +98,17 @@ layout: default
     </section>
   {% endif %}
 
-  <section class="home-section" id="publications" aria-labelledby="publications-heading">
+  <section class="home-section" id="publications" aria-labelledby="publications-heading" style="--section-title-size: {{ sections.publications.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.publications.bodyFontSize | default: '1rem' | escape }};">
     <div class="home-section__header home-section__header--split">
       <div>
-        <p class="home-section__kicker">Research</p>
-        <h2 id="publications-heading">Publications</h2>
+        {% assign publications_kicker = "Research" %}
+        {% if sections.publications.kicker != nil %}
+          {% assign publications_kicker = sections.publications.kicker %}
+        {% endif %}
+        {% if publications_kicker != "" %}
+          <p class="home-section__kicker">{{ publications_kicker }}</p>
+        {% endif %}
+        <h2 id="publications-heading" data-default-title="{{ sections.publications.title | default: 'Featured Publications' | escape }}" data-filtered-title="{{ sections.publications.filteredTitle | default: 'Publications' | escape }}">{{ sections.publications.title | default: "Featured Publications" }}</h2>
       </div>
       <a class="home-section__link" href="https://scholar.google.com/citations?user=83dHPfMAAAAJ">Google Scholar</a>
     </div>
@@ -123,7 +142,7 @@ layout: default
     <div class="home-publications">
       {% for paper in home.publications %}
         {% assign tags = paper.tags | join: ', ' %}
-        <article class="home-publication{% if paper.featured %} home-publication--featured{% endif %}" data-publication data-title="{{ paper.title | downcase | escape }}" data-authors="{{ paper.authors | downcase | escape }}" data-year="{{ paper.year | escape }}" data-venue="{{ paper.venue | escape }}" data-tags="{{ tags | escape }}">
+        <article class="home-publication{% if paper.featured %} home-publication--featured{% endif %}" data-publication data-featured="{{ paper.featured }}" data-title="{{ paper.title | downcase | escape }}" data-authors="{{ paper.authors | downcase | escape }}" data-year="{{ paper.year | escape }}" data-venue="{{ paper.venue | escape }}" data-tags="{{ tags | escape }}">
           <div class="home-publication__meta">
             <span>{{ paper.venue }}</span>
             <span>{{ paper.year }}</span>
@@ -164,10 +183,16 @@ layout: default
   </section>
 
   {% if home.education and home.education.size > 0 %}
-    <section class="home-section" id="education" aria-labelledby="education-heading">
+    <section class="home-section" id="education" aria-labelledby="education-heading" style="--section-title-size: {{ sections.education.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.education.bodyFontSize | default: '1rem' | escape }};">
       <div class="home-section__header">
-        <p class="home-section__kicker">Training</p>
-        <h2 id="education-heading">Education</h2>
+        {% assign education_kicker = "Training" %}
+        {% if sections.education.kicker != nil %}
+          {% assign education_kicker = sections.education.kicker %}
+        {% endif %}
+        {% if education_kicker != "" %}
+          <p class="home-section__kicker">{{ education_kicker }}</p>
+        {% endif %}
+        <h2 id="education-heading">{{ sections.education.title | default: "Education" }}</h2>
       </div>
       <div class="home-timeline">
         {% for item in home.education %}
@@ -187,10 +212,16 @@ layout: default
   {% endif %}
 
   {% if home.experience and home.experience.size > 0 %}
-    <section class="home-section" id="experience" aria-labelledby="experience-heading">
+    <section class="home-section" id="experience" aria-labelledby="experience-heading" style="--section-title-size: {{ sections.experience.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.experience.bodyFontSize | default: '1rem' | escape }};">
       <div class="home-section__header">
-        <p class="home-section__kicker">Work</p>
-        <h2 id="experience-heading">Experience</h2>
+        {% assign experience_kicker = "Work" %}
+        {% if sections.experience.kicker != nil %}
+          {% assign experience_kicker = sections.experience.kicker %}
+        {% endif %}
+        {% if experience_kicker != "" %}
+          <p class="home-section__kicker">{{ experience_kicker }}</p>
+        {% endif %}
+        <h2 id="experience-heading">{{ sections.experience.title | default: "Experience" }}</h2>
       </div>
       <div class="home-timeline">
         {% for item in home.experience %}
@@ -210,10 +241,16 @@ layout: default
   {% endif %}
 
   {% if home.service and home.service.size > 0 %}
-    <section class="home-section" id="service" aria-labelledby="service-heading">
+    <section class="home-section" id="service" aria-labelledby="service-heading" style="--section-title-size: {{ sections.service.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.service.bodyFontSize | default: '1rem' | escape }};">
       <div class="home-section__header">
-        <p class="home-section__kicker">Service</p>
-        <h2 id="service-heading">Academic Service</h2>
+        {% assign service_kicker = "Service" %}
+        {% if sections.service.kicker != nil %}
+          {% assign service_kicker = sections.service.kicker %}
+        {% endif %}
+        {% if service_kicker != "" %}
+          <p class="home-section__kicker">{{ service_kicker }}</p>
+        {% endif %}
+        <h2 id="service-heading">{{ sections.service.title | default: "Academic Service" }}</h2>
       </div>
       <div class="home-service">
         {% for item in home.service %}

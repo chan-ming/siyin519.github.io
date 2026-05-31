@@ -20,7 +20,33 @@
   }
 
   const clone = (value) => JSON.parse(JSON.stringify(value));
-  const initial = JSON.parse(dataNode.textContent);
+  const sectionConfig = [
+    { key: "about", label: "About", kicker: "Profile", title: "About Me", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "news", label: "News", kicker: "Updates", title: "News", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "publications", label: "Publications", kicker: "Research", title: "Featured Publications", filteredTitle: "Publications", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "education", label: "Education", kicker: "Training", title: "Education", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "experience", label: "Experience", kicker: "Work", title: "Experience", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "service", label: "Academic Service", kicker: "Service", title: "Academic Service", titleFontSize: "1.65rem", bodyFontSize: "1rem" }
+  ];
+  const sectionDefaults = Object.fromEntries(sectionConfig.map((section) => [section.key, {
+    kicker: section.kicker,
+    title: section.title,
+    ...(section.filteredTitle ? { filteredTitle: section.filteredTitle } : {}),
+    titleFontSize: section.titleFontSize,
+    bodyFontSize: section.bodyFontSize
+  }]));
+  const withSectionDefaults = (data) => {
+    const next = clone(data);
+    next.sections = next.sections || {};
+    sectionConfig.forEach((section) => {
+      next.sections[section.key] = {
+        ...sectionDefaults[section.key],
+        ...(next.sections[section.key] || {})
+      };
+    });
+    return next;
+  };
+  const initial = withSectionDefaults(JSON.parse(dataNode.textContent));
   let initialData = clone(initial);
   let model = clone(initialData);
   let isSaving = false;
@@ -184,9 +210,42 @@
     </section>
   `;
 
+  const renderSectionSettings = () => {
+    const rows = sectionConfig.map((section) => {
+      const fields = [
+        { name: "kicker", label: "Small heading (blank hides it)" },
+        { name: "title", label: "Section title" },
+        { name: "titleFontSize", label: "Title font size" },
+        { name: "bodyFontSize", label: "Body font size" }
+      ];
+      if (section.key === "publications") {
+        fields.splice(2, 0, { name: "filteredTitle", label: "Title while filtering" });
+      }
+
+      return `
+        <div class="admin-item">
+          <div class="admin-item__header">
+            <p class="admin-item__title">${html(section.label)}</p>
+          </div>
+          <div class="admin-fields">
+            ${fields.map((field) => renderField({ ...field, path: `sections.${section.key}.${field.name}` })).join("")}
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    return `
+      <section class="admin-section">
+        <h2>Section Titles & Typography</h2>
+        ${rows}
+      </section>
+    `;
+  };
+
   const renderEditor = () => {
     editor.innerHTML = [
       renderProfile(),
+      renderSectionSettings(),
       renderObjectList("Links", "links", [
         { name: "label", label: "Label" },
         { name: "url", label: "URL" }
@@ -242,9 +301,30 @@
     });
   };
 
+  const normalizeFontSize = (value, fallback) => {
+    const text = String(value || "").trim();
+    if (/^\d+(\.\d+)?(px|rem|em|%)$/.test(text)) {
+      return text;
+    }
+    return fallback;
+  };
+
   const normalize = (data) => {
-    const next = clone(data);
+    const next = withSectionDefaults(data);
     next.profile.researchInterests = splitTags(Array.isArray(next.profile.researchInterests) ? next.profile.researchInterests.join(",") : next.profile.researchInterests);
+    next.sections = {};
+    sectionConfig.forEach((section) => {
+      const incoming = data.sections && data.sections[section.key] ? data.sections[section.key] : {};
+      next.sections[section.key] = {
+        kicker: String(incoming.kicker ?? section.kicker).trim(),
+        title: String(incoming.title ?? section.title).trim() || section.title,
+        titleFontSize: normalizeFontSize(incoming.titleFontSize, section.titleFontSize),
+        bodyFontSize: normalizeFontSize(incoming.bodyFontSize, section.bodyFontSize)
+      };
+      if (section.key === "publications") {
+        next.sections[section.key].filteredTitle = String(incoming.filteredTitle ?? section.filteredTitle).trim() || section.filteredTitle;
+      }
+    });
     next.links = (next.links || []).filter(itemHasContent);
     next.about = (next.about || []).map((item) => String(item || "").trim()).filter(Boolean);
     next.news = (next.news || []).filter(itemHasContent);
@@ -261,6 +341,9 @@
 
   const renderPreview = () => {
     const data = normalize(model);
+    const aboutSection = data.sections.about;
+    const newsSection = data.sections.news;
+    const publicationsSection = data.sections.publications;
     const links = (data.links || []).map((link) => `<a href="${html(link.url)}">${html(link.label)}</a>`).join(" ");
     const interests = (data.profile.researchInterests || []).map((tag) => `<span>${html(tag)}</span>`).join("");
     const news = (data.news || []).slice(0, 5).map((item) => `<p><strong>${html(item.date)}</strong> ${html(item.text)}</p>`).join("");
@@ -278,11 +361,11 @@
       <p>${html(data.profile.tagline || "")}</p>
       <p>${links}</p>
       <div class="home-tags">${interests}</div>
-      <h3>About</h3>
-      ${(data.about || []).map((paragraph) => `<p>${html(paragraph)}</p>`).join("")}
-      <h3>News</h3>
+      <h3 style="font-size: ${html(aboutSection.titleFontSize)}">${html(aboutSection.title)}</h3>
+      ${(data.about || []).map((paragraph) => `<p style="font-size: ${html(aboutSection.bodyFontSize)}">${html(paragraph)}</p>`).join("")}
+      <h3 style="font-size: ${html(newsSection.titleFontSize)}">${html(newsSection.title)}</h3>
       ${news || "<p>No news items.</p>"}
-      <h3>Publications</h3>
+      <h3 style="font-size: ${html(publicationsSection.titleFontSize)}">${html(publicationsSection.title)}</h3>
       ${publications || "<p>No publications.</p>"}
     `;
   };

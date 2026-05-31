@@ -10,10 +10,49 @@
     "tagline": "Speech and audio large language models, multimodal interaction, and speech quality evaluation.",
     "researchInterests": [
       "Speech and Audio LLMs",
-      "Multimodal Interaction",
+      "Multimodal full-duplex Interaction",
       "Speech Quality Evaluation",
       "In-Context Learning"
     ]
+  },
+  "sections": {
+    "about": {
+      "kicker": "Profile",
+      "title": "About Me",
+      "titleFontSize": "1.65rem",
+      "bodyFontSize": "1rem"
+    },
+    "news": {
+      "kicker": "Updates",
+      "title": "News",
+      "titleFontSize": "1.65rem",
+      "bodyFontSize": "1rem"
+    },
+    "publications": {
+      "kicker": "Research",
+      "title": "Featured Publications",
+      "filteredTitle": "Publications",
+      "titleFontSize": "1.65rem",
+      "bodyFontSize": "1rem"
+    },
+    "education": {
+      "kicker": "Training",
+      "title": "Education",
+      "titleFontSize": "1.65rem",
+      "bodyFontSize": "1rem"
+    },
+    "experience": {
+      "kicker": "Work",
+      "title": "Experience",
+      "titleFontSize": "1.65rem",
+      "bodyFontSize": "1rem"
+    },
+    "service": {
+      "kicker": "Service",
+      "title": "Academic Service",
+      "titleFontSize": "1.65rem",
+      "bodyFontSize": "1rem"
+    }
   },
   "links": [
     {
@@ -30,95 +69,82 @@
     }
   ],
   "about": [
-    "I am a Ph.D. student at Tsinghua University. My research focuses on speech and audio large language models, with an emphasis on building systems that can listen, speak, reason, and interact through speech in more natural ways.",
-    "My recent work explores full-duplex speech LLMs, speech quality evaluation with auditory LLMs, multimodal in-context learning, and robust speech-audio interaction. I am especially interested in end-to-end models that connect perception, language reasoning, and generation in a unified framework.",
+    "I am a Ph.D. student at Department of Electronic Engineering, Tsinghua University. My research focuses mainly on speech and audio LLMs, particularly multimodal full-duplex interaction now. My recent work explores multimodal full-duplex interaction, speech quality evaluation with auditory LLMs and speech-based in-context learning.",
     "I am open to academic collaboration on speech, audio, and multimodal intelligence."
   ],
   "news": [
     {
-      "date": "2026.05",
-      "text": "End-to-end Listen, Look, Speak and Act was listed as an ICLR 2026 poster on OpenReview.",
-      "url": "https://openreview.net/profile?id=~Siyin_Wang2"
+      "date": "2026.04",
+      "text": "Our review paper on audio LLMs is accepted in principle by Nature Machine Intelligence.",
+      "url": "https://arxiv.org/abs/2511.01299"
     },
     {
-      "date": "2025.11",
-      "text": "SALMONN-omni was listed as a NeurIPS 2025 poster on OpenReview.",
-      "url": "https://openreview.net/profile?id=~Siyin_Wang2"
+      "date": "2026.01",
+      "text": "ELLSA is accepted by ICLR 2026.",
+      "url": "https://openreview.net/forum?id=LYyoRqf0Ij"
     },
     {
-      "date": "2025.04",
-      "text": "Enabling Auditory Large Language Models for Automatic Speech Quality Evaluation appeared at ICASSP 2025.",
-      "url": "https://doi.org/10.1109/ICASSP49660.2025.10890590"
+      "date": "2025.09",
+      "text": "SALMONN-omni is accepted by NeurIPS 2025.",
+      "url": "https://openreview.net/forum?id=AsRB5nmlOD"
     },
     {
-      "date": "2025.04",
-      "text": "Audio Large Language Models Can Be Descriptive Speech Quality Evaluators appeared at ICLR 2025.",
-      "url": "https://openreview.net/forum?id=U42TkrEDzb"
-    },
-    {
-      "date": "2024.11",
-      "text": "Bayesian Example Selection Improves In-Context Learning for Speech, Text, and Visual Modalities appeared at EMNLP 2024.",
-      "url": "https://research.nvidia.com/index.php/publication/2024-11_bayesian-example-selection-improves-context-learning-speech-text-and-visual"
+      "date": "2025.05",
+      "text": "QualiSpeech is accepted by ACL 2025.",
+      "url": "https://aclanthology.org/2025.acl-long.1150/"
     }
   ],
   "publications": [
     {
-      "title": "End-to-end Listen, Look, Speak and Act",
-      "authors": "Siyin Wang, Wenyi Yu, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Lu Lu, Yuxuan Wang, Chao Zhang",
-      "venue": "ICLR 2026 Poster",
+      "title": "Towards General Auditory Intelligence: Large Multimodal Models for Machine Listening and Speaking",
+      "authors": "Siyin Wang*, Zengrui Jin*, Changli Tang, Qiujia Li, Bo Li, Chen Chen, Yuchen Hu, Wenyi Yu, Yixuan Li, Jimin Zhuang, Yudong Yang, Mingqiu Wang, Michael Han, Yifan Ding, Junwen Bai, Tom Ouyang, Shuo-yiin Chang, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Lu Lu, Guangzhi Sun, Zhehuai Chen, Ji Wu, Bowen Zhou, Yuxuan Wang, Tara Sainath, Yonghui Wu, Chao Zhang",
+      "venue": "Nature Machine Intelligence (accepted in principle)",
       "year": "2026",
-      "summary": "A multimodal end-to-end system for listening, looking, speaking, and acting through a unified interaction model.",
-      "url": "https://openreview.net/profile?id=~Siyin_Wang2",
+      "summary": "A comprehensive review of LLMs for audio modalities, corperated with Google DeepMind and Nvidia.",
+      "url": "https://arxiv.org/pdf/2411.18138",
       "codeUrl": "",
       "tags": [
-        "Multimodal LLM",
-        "Full-duplex",
-        "Interaction"
+        "Audio LLMs"
       ],
       "featured": true
     },
     {
-      "title": "SICL-AT: Another way to adapt Auditory LLM to low-resource task",
-      "authors": "Haolong Zheng, Siyin Wang, Zengrui Jin, Mark Hasegawa-Johnson",
-      "venue": "CoRR",
+      "title": "End-to-end Listen, Look, Speak and Act",
+      "authors": "Siyin Wang*, Wenyi Yu*, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Lu Lu, Yuxuan Wang, Chao Zhang",
+      "venue": "ICLR 2026 Poster",
       "year": "2026",
-      "summary": "A study of adapting auditory LLMs to low-resource speech and audio tasks.",
-      "url": "https://openreview.net/profile?id=~Siyin_Wang2",
-      "codeUrl": "",
+      "summary": "A method for using auditory LLMs to evaluate speech quality across MOS, speaker similarity, A/B testing, and natural language descriptions.",
+      "url": "https://arxiv.org/pdf/2510.16756",
+      "codeUrl": "https://github.com/bytedance/SALMONN/tree/ELLSA",
       "tags": [
-        "Auditory LLM",
-        "Low-resource",
-        "Adaptation"
+        "Multimodal Interaction",
+        "Full-duplex"
       ],
-      "featured": false
+      "featured": true
     },
     {
       "title": "Speech-Audio Compositional Attacks on Multimodal LLMs and Their Mitigation with SALMONN-Guard",
       "authors": "Yudong Yang, Xuezhen Zhang, Zhifeng Han, Siyin Wang, Jimin Zhuang, Zengrui Jin, Jing Shao, Guangzhi Sun, Chao Zhang",
-      "venue": "CoRR",
-      "year": "2025",
+      "venue": "ICML 2026",
+      "year": "2026",
       "summary": "A study of compositional speech-audio attacks and mitigation strategies for multimodal LLMs.",
-      "url": "https://openreview.net/profile?id=~Siyin_Wang2",
-      "codeUrl": "",
+      "url": "https://arxiv.org/pdf/2511.10222",
+      "codeUrl": "https://huggingface.co/datasets/tsinghua-ee/SACRED-Bench",
       "tags": [
-        "Security",
-        "Multimodal LLM",
-        "Speech-Audio"
+        "Security"
       ],
       "featured": false
     },
     {
       "title": "SALMONN-omni: A Standalone Speech LLM without Codec Injection for Full-duplex Conversation",
-      "authors": "Wenyi Yu, Siyin Wang, Xiaoyu Yang, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Guangzhi Sun, Lu Lu, Yuxuan Wang, Chao Zhang",
+      "authors": "Wenyi Yu*, Siyin Wang*, Xiaoyu Yang, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Guangzhi Sun, Lu Lu, Yuxuan Wang, Chao Zhang",
       "venue": "NeurIPS 2025 Poster",
       "year": "2025",
       "summary": "A codec-free full-duplex speech LLM for simultaneous speech understanding and generation in natural conversation.",
-      "url": "https://arxiv.org/abs/2411.18138",
+      "url": "https://arxiv.org/pdf/2411.18138",
       "codeUrl": "",
       "tags": [
-        "Speech LLM",
-        "Full-duplex",
-        "SALMONN"
+        "Full-duplex"
       ],
       "featured": true
     },
@@ -128,27 +154,10 @@
       "venue": "ACL 2025",
       "year": "2025",
       "summary": "A dataset and benchmark for speech quality assessment with natural language reasoning and descriptive feedback.",
-      "url": "https://openreview.net/profile?id=~Siyin_Wang2",
-      "codeUrl": "",
+      "url": "https://arxiv.org/pdf/2503.20290",
+      "codeUrl": "https://huggingface.co/datasets/tsinghua-ee/QualiSpeech",
       "tags": [
-        "Speech Quality",
-        "Dataset",
-        "Reasoning"
-      ],
-      "featured": true
-    },
-    {
-      "title": "Enabling Auditory Large Language Models for Automatic Speech Quality Evaluation",
-      "authors": "Siyin Wang, Wenyi Yu, Yudong Yang, Changli Tang, Yixuan Li, Jimin Zhuang, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Guangzhi Sun, Lu Lu, Chao Zhang",
-      "venue": "ICASSP 2025",
-      "year": "2025",
-      "summary": "A method for using auditory LLMs to evaluate speech quality across MOS, speaker similarity, A/B testing, and natural language descriptions.",
-      "url": "https://doi.org/10.1109/ICASSP49660.2025.10890590",
-      "codeUrl": "https://github.com/bytedance/SALMONN",
-      "tags": [
-        "Auditory LLM",
-        "Speech Quality",
-        "Evaluation"
+        "Speech Quality"
       ],
       "featured": true
     },
@@ -158,12 +167,36 @@
       "venue": "ICLR 2025",
       "year": "2025",
       "summary": "A study showing how audio LLMs can produce descriptive and human-aligned speech quality evaluations.",
-      "url": "https://openreview.net/forum?id=U42TkrEDzb",
+      "url": "https://arxiv.org/pdf/2501.17202",
       "codeUrl": "",
       "tags": [
-        "Audio LLM",
-        "Speech Quality",
-        "ICLR"
+        "Speech Quality"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Enabling Auditory Large Language Models for Automatic Speech Quality Evaluation",
+      "authors": "Siyin Wang, Wenyi Yu, Yudong Yang, Changli Tang, Yixuan Li, Jimin Zhuang, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Guangzhi Sun, Lu Lu, Chao Zhang",
+      "venue": "ICASSP 2025",
+      "year": "2025",
+      "summary": "A method for using auditory LLMs to evaluate speech quality across MOS, speaker similarity, A/B testing, and natural language descriptions.",
+      "url": "https://arxiv.org/pdf/2409.16644",
+      "codeUrl": "https://github.com/bytedance/SALMONN/tree/speech_quality_assessment",
+      "tags": [
+        "Speech Quality"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Speaker Diarization for Unlimited Number of Speakers Using Dynamic Linear",
+      "authors": "Siyin Wang, Chao Zhang",
+      "venue": "ISCSLP 2024 Best Student Paper Candidate",
+      "year": "2024",
+      "summary": "A method for speaker diarization with unlimited number of speakers using dynamic linear.",
+      "url": "https://ieeexplore.ieee.org/abstract/document/10800134",
+      "codeUrl": "",
+      "tags": [
+        "Speaker Diarization"
       ],
       "featured": false
     },
@@ -173,36 +206,59 @@
       "venue": "EMNLP 2024",
       "year": "2024",
       "summary": "A Bayesian method for selecting in-context examples across speech, text, and visual tasks.",
-      "url": "https://research.nvidia.com/index.php/publication/2024-11_bayesian-example-selection-improves-context-learning-speech-text-and-visual",
+      "url": "https://arxiv.org/pdf/2404.14716",
       "codeUrl": "",
       "tags": [
-        "In-Context Learning",
-        "Multimodal",
-        "Bayesian"
+        "In-Context Learning"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Can Whisper Perform Speech-based In-context Learning?",
+      "authors": "Siyin Wang, Huck Yang, Ji Wu, Chao Zhang",
+      "venue": "ICASSP 2024",
+      "year": "2024",
+      "summary": "The first work of speech-based in-context learning, exploring the performance of Whisper in dialect ASR.",
+      "url": "https://arxiv.org/pdf/2309.07081",
+      "codeUrl": "",
+      "tags": [
+        "In-Context Learning"
       ],
       "featured": true
     }
   ],
   "education": [
     {
+      "period": "2019 - 2023",
+      "title": "Bachelor's Degree",
+      "institution": "Department of Electronic Engineering, Tsinghua University",
+      "description": "Excellent Graduates of Tsinghua University （清华大学优良毕业生），Excellent League Member of Tsinghua University（清华大学优秀共青团员），Excellent Student Cadre of Tsinghua University（清华大学优秀学生干部）"
+    },
+    {
       "period": "2023 - Present",
       "title": "Ph.D. Student",
-      "institution": "Tsinghua University",
-      "description": "Research on speech and audio large language models, multimodal interaction, and speech quality evaluation."
+      "institution": "Department of Electronic Engineering, Tsinghua University",
+      "description": "Research on speech and audio large language models, multimodal full-duplex interaction, and speech in-context learning."
     }
   ],
   "experience": [
     {
-      "period": "2024 - Present",
-      "title": "Speech and Audio LLM Research",
-      "institution": "Tsinghua University and ByteDance",
-      "description": "Research collaboration on SALMONN-related systems, codec-free full-duplex speech LLMs, and speech quality evaluation."
+      "period": "2023.11 - 2024.05",
+      "title": "Internship",
+      "institution": "AI Lab, Tencent",
+      "description": "Focusing on building large-scale speech encoder and speech-based in-context learning."
+    },
+    {
+      "period": "2024.05 - Present",
+      "title": "Internship",
+      "institution": "Speech Team, ByteDance",
+      "description": "Internship on SALMONN project, focusing on multimodal full-duplex interaction and speech quality evaluation."
     }
   ],
   "service": [
     {
       "title": "Reviewer Service",
-      "description": "ICASSP, ASRU, SLT, ACL ARR, IEEE TASLP, ICLR, ICML, NeurIPS"
+      "description": "ICASSP, ASRU, SLT, ACL ARR, ICLR, NeurIPS, IEEE TASLP"
     }
   ]
 }

@@ -8,8 +8,11 @@
   const filters = Array.from(document.querySelectorAll(".publication-filter"));
   const countNode = document.querySelector(".home-publication-count");
   const emptyNode = document.querySelector(".home-publications__empty");
+  const publicationTitle = document.getElementById("publications-heading");
 
-  const splitTags = (value) => value.split(",").map((tag) => tag.trim()).filter(Boolean);
+  const normalize = (value) => String(value || "").trim().toLowerCase();
+
+  const splitTags = (value) => String(value || "").split(",").map((tag) => tag.trim()).filter(Boolean);
 
   const unique = (values) => Array.from(new Set(values.filter(Boolean)));
 
@@ -45,10 +48,12 @@
     const year = getFilterValue("year");
     const venue = getFilterValue("venue");
     const tag = getFilterValue("tag");
+    const hasActiveFilter = Boolean(query || year || venue || tag);
     let visibleCount = 0;
 
     cards.forEach((card) => {
       const tags = splitTags(card.dataset.tags || "");
+      const isFeatured = card.dataset.featured === "true";
       const haystack = [
         card.dataset.title,
         card.dataset.authors,
@@ -60,8 +65,10 @@
       const matchesQuery = !query || haystack.includes(query);
       const matchesYear = !year || card.dataset.year === year;
       const matchesVenue = !venue || card.dataset.venue === venue;
-      const matchesTag = !tag || tags.includes(tag);
-      const visible = matchesQuery && matchesYear && matchesVenue && matchesTag;
+      const matchesTag = !tag || tags.map(normalize).includes(normalize(tag));
+      const visible = hasActiveFilter
+        ? matchesQuery && matchesYear && matchesVenue && matchesTag
+        : isFeatured;
 
       card.hidden = !visible;
       if (visible) {
@@ -70,10 +77,17 @@
     });
 
     if (countNode) {
-      countNode.textContent = `${visibleCount} of ${cards.length} publications shown`;
+      countNode.textContent = hasActiveFilter
+        ? `${visibleCount} of ${cards.length} publications shown`
+        : `${visibleCount} featured publications shown`;
     }
     if (emptyNode) {
       emptyNode.hidden = visibleCount !== 0;
+    }
+    if (publicationTitle) {
+      publicationTitle.textContent = hasActiveFilter
+        ? publicationTitle.dataset.filteredTitle || "Publications"
+        : publicationTitle.dataset.defaultTitle || "Featured Publications";
     }
   };
 
