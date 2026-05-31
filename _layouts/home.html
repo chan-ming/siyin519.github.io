@@ -1,0 +1,232 @@
+---
+layout: default
+---
+
+{% include base_path %}
+{% assign home = site.data.homepage %}
+{% assign profile_avatar = home.profile.avatar | default: "/images/profile.png" %}
+
+<script id="homepage-data" type="application/json">{{ home | jsonify }}</script>
+
+<main class="home-page" id="content">
+  <section class="home-hero" aria-labelledby="home-title">
+    <div class="home-hero__media">
+      {% if profile_avatar contains "://" %}
+        <img src="{{ profile_avatar }}" alt="{{ home.profile.name }}" class="home-hero__avatar" fetchpriority="high">
+      {% else %}
+        <img src="{{ profile_avatar | prepend: base_path }}" alt="{{ home.profile.name }}" class="home-hero__avatar" fetchpriority="high">
+      {% endif %}
+    </div>
+    <div class="home-hero__content">
+      <p class="home-hero__eyebrow">{{ home.profile.role }}</p>
+      <h1 id="home-title">{{ home.profile.name }}</h1>
+      {% if home.profile.chineseName %}
+        <p class="home-hero__name-alt">{{ home.profile.chineseName }}</p>
+      {% endif %}
+      <p class="home-hero__tagline">{{ home.profile.tagline }}</p>
+      <div class="home-hero__meta" aria-label="Profile details">
+        <span>{{ home.profile.affiliation }}</span>
+        <span>{{ home.profile.location }}</span>
+      </div>
+      <div class="home-hero__links" aria-label="Profile links">
+        {% for link in home.links %}
+          <a href="{{ link.url }}">{{ link.label }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <nav class="home-jump-nav" aria-label="Home sections">
+    <a href="#about">About</a>
+    <a href="#news">News</a>
+    <a href="#publications">Publications</a>
+    <a href="#education">Education</a>
+    <a href="#experience">Experience</a>
+    <a href="#service">Academic Service</a>
+  </nav>
+
+  <section class="home-section home-about" id="about" aria-labelledby="about-heading">
+    <div class="home-section__header">
+      <p class="home-section__kicker">About</p>
+      <h2 id="about-heading">About Me</h2>
+    </div>
+    <div class="home-about__body">
+      {% for paragraph in home.about %}
+        <p>{{ paragraph }}</p>
+      {% endfor %}
+      {% if home.profile.researchInterests and home.profile.researchInterests.size > 0 %}
+        <div class="home-tags" aria-label="Research interests">
+          {% for interest in home.profile.researchInterests %}
+            <span>{{ interest }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  {% if home.news and home.news.size > 0 %}
+    <section class="home-section" id="news" aria-labelledby="news-heading">
+      <div class="home-section__header">
+        <p class="home-section__kicker">Updates</p>
+        <h2 id="news-heading">News</h2>
+      </div>
+      <ol class="home-news">
+        {% for item in home.news %}
+          <li>
+            <time>{{ item.date }}</time>
+            {% if item.url %}
+              <a href="{{ item.url }}">{{ item.text }}</a>
+            {% else %}
+              <span>{{ item.text }}</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+  {% endif %}
+
+  <section class="home-section" id="publications" aria-labelledby="publications-heading">
+    <div class="home-section__header home-section__header--split">
+      <div>
+        <p class="home-section__kicker">Research</p>
+        <h2 id="publications-heading">Publications</h2>
+      </div>
+      <a class="home-section__link" href="https://scholar.google.com/citations?user=83dHPfMAAAAJ">Google Scholar</a>
+    </div>
+
+    <div class="home-publication-tools" aria-label="Publication filters">
+      <label>
+        <span>Search</span>
+        <input type="search" class="publication-search" placeholder="Title, author, venue, tag">
+      </label>
+      <label>
+        <span>Year</span>
+        <select class="publication-filter" data-filter="year">
+          <option value="">All years</option>
+        </select>
+      </label>
+      <label>
+        <span>Venue</span>
+        <select class="publication-filter" data-filter="venue">
+          <option value="">All venues</option>
+        </select>
+      </label>
+      <label>
+        <span>Tag</span>
+        <select class="publication-filter" data-filter="tag">
+          <option value="">All tags</option>
+        </select>
+      </label>
+    </div>
+    <p class="home-publication-count" aria-live="polite"></p>
+
+    <div class="home-publications">
+      {% for paper in home.publications %}
+        {% assign tags = paper.tags | join: ', ' %}
+        <article class="home-publication{% if paper.featured %} home-publication--featured{% endif %}" data-publication data-title="{{ paper.title | downcase | escape }}" data-authors="{{ paper.authors | downcase | escape }}" data-year="{{ paper.year | escape }}" data-venue="{{ paper.venue | escape }}" data-tags="{{ tags | escape }}">
+          <div class="home-publication__meta">
+            <span>{{ paper.venue }}</span>
+            <span>{{ paper.year }}</span>
+            {% if paper.featured %}
+              <strong>Featured</strong>
+            {% endif %}
+          </div>
+          <h3>
+            {% if paper.url %}
+              <a href="{{ paper.url }}">{{ paper.title }}</a>
+            {% else %}
+              {{ paper.title }}
+            {% endif %}
+          </h3>
+          <p class="home-publication__authors">{{ paper.authors }}</p>
+          {% if paper.summary %}
+            <p class="home-publication__summary">{{ paper.summary }}</p>
+          {% endif %}
+          {% if paper.tags and paper.tags.size > 0 %}
+            <div class="home-tags home-tags--small" aria-label="Publication tags">
+              {% for tag in paper.tags %}
+                <span>{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+          <div class="home-publication__links">
+            {% if paper.url %}
+              <a href="{{ paper.url }}">Paper</a>
+            {% endif %}
+            {% if paper.codeUrl and paper.codeUrl != "" %}
+              <a href="{{ paper.codeUrl }}">Code</a>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+    <p class="home-publications__empty" hidden>No publications match the current filters.</p>
+  </section>
+
+  {% if home.education and home.education.size > 0 %}
+    <section class="home-section" id="education" aria-labelledby="education-heading">
+      <div class="home-section__header">
+        <p class="home-section__kicker">Training</p>
+        <h2 id="education-heading">Education</h2>
+      </div>
+      <div class="home-timeline">
+        {% for item in home.education %}
+          <article class="home-timeline__item">
+            <time>{{ item.period }}</time>
+            <div>
+              <h3>{{ item.title }}</h3>
+              <p class="home-timeline__institution">{{ item.institution }}</p>
+              {% if item.description %}
+                <p>{{ item.description }}</p>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if home.experience and home.experience.size > 0 %}
+    <section class="home-section" id="experience" aria-labelledby="experience-heading">
+      <div class="home-section__header">
+        <p class="home-section__kicker">Work</p>
+        <h2 id="experience-heading">Experience</h2>
+      </div>
+      <div class="home-timeline">
+        {% for item in home.experience %}
+          <article class="home-timeline__item">
+            <time>{{ item.period }}</time>
+            <div>
+              <h3>{{ item.title }}</h3>
+              <p class="home-timeline__institution">{{ item.institution }}</p>
+              {% if item.description %}
+                <p>{{ item.description }}</p>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if home.service and home.service.size > 0 %}
+    <section class="home-section" id="service" aria-labelledby="service-heading">
+      <div class="home-section__header">
+        <p class="home-section__kicker">Service</p>
+        <h2 id="service-heading">Academic Service</h2>
+      </div>
+      <div class="home-service">
+        {% for item in home.service %}
+          <article>
+            <h3>{{ item.title }}</h3>
+            {% if item.description %}
+              <p>{{ item.description }}</p>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</main>
+
+<script src="{{ base_path }}/assets/js/homepage.js" defer></script>

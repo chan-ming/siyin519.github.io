@@ -1,0 +1,50 @@
+---
+layout: default
+---
+
+{% include base_path %}
+
+<script id="homepage-data" type="application/json">{{ site.data.homepage | jsonify }}</script>
+
+<main class="admin-shell" id="content">
+  <header class="admin-hero">
+    <div>
+      <p class="home-section__kicker">Admin</p>
+      <h1>{{ page.title }}</h1>
+      <p>Private content editor for the homepage data file.</p>
+    </div>
+    <a class="home-section__link" href="{{ base_path }}/">View site</a>
+  </header>
+
+  <div class="admin-grid">
+    <form class="admin-panel" id="homepage-admin-form">
+      <div class="admin-tokenbar">
+        <label class="admin-field">
+          <span>GitHub token</span>
+          <input type="password" id="github-token" autocomplete="off" placeholder="Contents: Read and write">
+        </label>
+        <label class="admin-field">
+          <span>Commit message</span>
+          <input type="text" id="commit-message" value="Update homepage content">
+        </label>
+      </div>
+
+      <div id="admin-editor"></div>
+
+      <div class="admin-actions">
+        <button class="admin-button admin-button--primary" type="submit">Save to GitHub</button>
+        <button class="admin-button" type="button" id="save-local">Save Local JSON</button>
+        <button class="admin-button" type="button" id="download-json">Download JSON</button>
+        <button class="admin-button" type="button" id="reset-draft">Reset Draft</button>
+        <p class="admin-status" data-status></p>
+      </div>
+    </form>
+
+    <aside class="admin-preview" aria-label="Live preview">
+      <p class="home-section__kicker">Preview</p>
+      <div class="admin-preview__surface" id="admin-preview"></div>
+    </aside>
+  </div>
+</main>
+
+<script src="{{ base_path }}/assets/js/admin-homepage.js" defer></script>
