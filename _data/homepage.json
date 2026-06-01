@@ -276,6 +276,10 @@
     {
       "title": "Reviewer Service",
       "description": "ICASSP, ASRU, SLT, ACL ARR, ICLR, NeurIPS, IEEE TASLP"
+    },
+    {
+      "title": "Invited Talk",
+      "description": "Tutorial on audio LLMs for speech quality at NII, invited by Prof. Junichi Yamagishi, June 2025."
     }
   ],
   "life": [
