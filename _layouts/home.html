@@ -31,7 +31,17 @@ layout: default
       </div>
       <div class="home-hero__links" aria-label="Profile links">
         {% for link in home.links %}
-          <a href="{{ link.url }}">{{ link.label }}</a>
+          {% assign link_url = link.url | default: "" %}
+          {% assign link_href = link_url %}
+          {% assign link_first_char = link_url | slice: 0, 1 %}
+          {% if link_url contains "://" or link_url contains "mailto:" or link_first_char == "#" %}
+            {% assign link_href = link_url %}
+          {% elsif link_first_char == "/" %}
+            {% assign link_href = link_url | prepend: base_path %}
+          {% else %}
+            {% assign link_href = link_url | prepend: "/" | prepend: base_path %}
+          {% endif %}
+          <a href="{{ link_href | escape }}">{{ link.label }}</a>
         {% endfor %}
       </div>
     </div>
