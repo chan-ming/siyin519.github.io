@@ -215,6 +215,10 @@
     const lightboxImage = document.querySelector("[data-life-lightbox-image]");
     const lightboxCaption = document.querySelector("[data-life-lightbox-caption]");
     const lightboxCloseButtons = Array.from(document.querySelectorAll("[data-life-lightbox-close]"));
+    const momentSwitcher = document.querySelector("[data-map-switcher]");
+    const momentSwitcherCount = document.querySelector("[data-map-switcher-count]");
+    const momentPrev = document.querySelector("[data-map-prev]");
+    const momentNext = document.querySelector("[data-map-next]");
     const mapViewport = document.querySelector("[data-map-viewport]");
     const mapCanvas = document.querySelector("[data-map-canvas]");
     const zoomInput = document.querySelector("[data-map-zoom]");
@@ -225,13 +229,37 @@
       scale: 1,
       x: 0,
       y: 0,
-      activeIndex: ""
+      activeIndex: "",
+      activeGroupIndexes: [],
+      activeGroupPosition: 0
     };
 
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
     const getPointIndexes = (point) => String(point.dataset.lifeIndexes || point.dataset.lifeIndex || "").split(",").filter(Boolean);
     const pointIncludesIndex = (point, index) => getPointIndexes(point).includes(String(index));
     const findPointForIndex = (index) => mapPoints.find((point) => !point.hidden && pointIncludesIndex(point, index));
+    const getGroupIndexesForIndex = (index) => {
+      const point = findPointForIndex(index);
+      const indexes = point ? getPointIndexes(point) : [String(index)];
+      return indexes.length ? indexes : [String(index)];
+    };
+
+    const updateMomentSwitcher = () => {
+      if (!momentSwitcher) {
+        return;
+      }
+      const indexes = mapState.activeGroupIndexes;
+      const hasChoices = indexes.length > 1;
+      momentSwitcher.hidden = !hasChoices;
+      if (!hasChoices) {
+        return;
+      }
+      const position = Math.max(0, indexes.indexOf(String(mapState.activeIndex)));
+      mapState.activeGroupPosition = position;
+      if (momentSwitcherCount) {
+        momentSwitcherCount.textContent = `${position + 1} / ${indexes.length}`;
+      }
+    };
 
     const clampMapPan = () => {
       if (!mapViewport || mapState.scale <= 1) {
@@ -295,25 +323,44 @@
 
     const clearActiveMoment = () => {
       mapState.activeIndex = "";
+      mapState.activeGroupIndexes = [];
+      mapState.activeGroupPosition = 0;
       mapPoints.forEach((point) => point.classList.remove("is-active"));
       mapCards.forEach((card) => card.classList.remove("is-active"));
       mapDetails.forEach((detail) => {
         detail.hidden = true;
       });
+      if (momentSwitcher) {
+        momentSwitcher.hidden = true;
+      }
     };
 
     const setActiveMoment = (index) => {
-      mapState.activeIndex = index;
+      const nextIndex = String(index);
+      mapState.activeIndex = nextIndex;
+      mapState.activeGroupIndexes = getGroupIndexesForIndex(nextIndex);
       mapPoints.forEach((point) => {
-        point.classList.toggle("is-active", !point.hidden && pointIncludesIndex(point, index));
+        point.classList.toggle("is-active", !point.hidden && pointIncludesIndex(point, nextIndex));
       });
       mapCards.forEach((card) => {
-        card.classList.toggle("is-active", card.dataset.lifeIndex === index);
+        card.classList.toggle("is-active", card.dataset.lifeIndex === nextIndex);
       });
       mapDetails.forEach((detail) => {
-        detail.hidden = detail.dataset.lifeIndex !== index;
+        detail.hidden = detail.dataset.lifeIndex !== nextIndex;
       });
-      centerMapOnPoint(index);
+      updateMomentSwitcher();
+      centerMapOnPoint(nextIndex);
+    };
+
+    const switchMomentAtPlace = (direction) => {
+      const indexes = mapState.activeGroupIndexes;
+      if (indexes.length <= 1) {
+        return;
+      }
+      const currentPosition = indexes.indexOf(String(mapState.activeIndex));
+      const position = currentPosition === -1 ? 0 : currentPosition;
+      const nextPosition = (position + direction + indexes.length) % indexes.length;
+      setActiveMoment(indexes[nextPosition]);
     };
 
     positionMapPoints();
@@ -339,6 +386,13 @@
       button.addEventListener("click", clearActiveMoment);
     });
 
+    if (momentPrev) {
+      momentPrev.addEventListener("click", () => switchMomentAtPlace(-1));
+    }
+    if (momentNext) {
+      momentNext.addEventListener("click", () => switchMomentAtPlace(1));
+    }
+
     const closeLightbox = () => {
       if (!lightbox || !lightboxImage) {
         return;
@@ -360,8 +414,7 @@
         lightboxImage.src = button.dataset.imageSrc || (image ? image.src : "");
         lightboxImage.alt = image ? image.alt : "";
         if (lightboxCaption) {
-          const detail = button.closest("[data-map-detail]");
-          lightboxCaption.textContent = detail ? detail.querySelector("h3").textContent : "";
+          lightboxCaption.textContent = image ? image.alt : "";
         }
         lightbox.hidden = false;
       });

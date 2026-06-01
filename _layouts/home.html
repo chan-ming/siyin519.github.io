@@ -344,7 +344,7 @@ layout: default
         <div class="home-life-map__stage" aria-label="Life moments map" style="--map-marker-size: {{ sections.life.mapMarkerSize | default: '0.72rem' | escape }};">
           <div class="home-life-map__details" aria-live="polite">
             {% for item in home.life %}
-              <article class="home-life-map__detail" data-map-detail data-life-index="{{ forloop.index0 }}" hidden>
+              <article class="home-life-map__detail{% if item.featured %} home-life-map__detail--featured{% endif %}" data-map-detail data-life-index="{{ forloop.index0 }}" hidden>
                 {% assign image_src = item.image | default: "" %}
                 {% if image_src != "" %}
                   {% assign first_char = image_src | slice: 0, 1 %}
@@ -377,6 +377,11 @@ layout: default
                 <button class="home-life-map__detail-close" type="button" data-map-clear aria-label="Close selected life moment">×</button>
               </article>
             {% endfor %}
+            <div class="home-life-map__switcher" data-map-switcher hidden>
+              <button type="button" data-map-prev aria-label="Previous moment at this place">&lt;</button>
+              <span data-map-switcher-count>1 / 1</span>
+              <button type="button" data-map-next aria-label="Next moment at this place">&gt;</button>
+            </div>
           </div>
           <div class="home-life-map__viewport" data-map-viewport>
             <div class="home-life-map__canvas" data-map-canvas>
@@ -407,7 +412,7 @@ layout: default
         </div>
         <div class="home-life-map__list" aria-label="Life moment selector">
           {% for item in home.life %}
-            <article class="home-life-map__card" data-map-card data-life-index="{{ forloop.index0 }}"{% if item.coordinates and item.coordinates.lat and item.coordinates.lng %} data-has-map-point="true"{% endif %}>
+            <article class="home-life-map__card{% if item.featured %} home-life-map__card--featured{% endif %}" data-map-card data-life-index="{{ forloop.index0 }}"{% if item.coordinates and item.coordinates.lat and item.coordinates.lng %} data-has-map-point="true"{% endif %}>
               <button type="button">
                 {% if item.date %}
                   <time>{{ item.date }}</time>

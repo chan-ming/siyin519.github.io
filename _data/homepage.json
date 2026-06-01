@@ -377,7 +377,8 @@
       "date": "2022.02",
       "description": "Serving at the opening ceremony of Beijing 2022. I'm the one wearing a green top in the upper left.",
       "image": "/images/dongao.jpg",
-      "alt": "Siyin Wang at the Beijing Winter Olympics",
+      "alt": "Serving as a standard-bearer to welcome athletes from around the world at the opening ceremony.",
+      "featured": true,
       "place": "Beijing, China",
       "coordinates": {
         "lat": 39.9042,
@@ -387,10 +388,11 @@
     {
       "title": "Trip to Yunnan",
       "date": "2022.08",
-      "description": "滇池日落",
+      "description": "A quiet sunset over Dianchi Lake.",
       "image": "/images/yunnan.jpg",
-      "alt": "Trip to Yunnan",
-      "place": "Kunming, China",
+      "alt": "Sunset over Dianchi Lake in Yunnan",
+      "featured": false,
+      "place": "Kunming, Yunnan, China",
       "coordinates": {
         "lat": 25.0438,
         "lng": 102.7045
@@ -399,9 +401,10 @@
     {
       "title": "Undergraduate Graduation",
       "date": "2023.06",
-      "description": "Photo taken at Remmin University of China (RUC), my girlfriend's alma mater and also my second “alma mater“.",
+      "description": "Photo taken at Renmin University of China (RUC), my girlfriend's alma mater and almost my second one.",
       "image": "/images/undergraduate.jpg",
-      "alt": "Undergraduate graduation photo",
+      "alt": "Undergraduate graduation photo, taken at Mingde Square, RUC",
+      "featured": true,
       "place": "Beijing, China",
       "coordinates": {
         "lat": 39.9699,
@@ -411,9 +414,10 @@
     {
       "title": "Overseas Social Practice",
       "date": "2023.08",
-      "description": "花火大会前的宁静时刻",
+      "description": "A still moment before the fireworks festival.",
       "image": "/images/japan.jpg",
-      "alt": "Overseas Social Practice",
+      "alt": "A quiet moment before a fireworks festival",
+      "featured": false,
       "place": "Osaka, Japan",
       "coordinates": {
         "lat": 34.693,
@@ -421,15 +425,107 @@
       }
     },
     {
-      "title": "First Conference Trip",
+      "title": "ICASSP 2024, Seoul",
       "date": "2024.04",
       "description": "First academic conference experience at ICASSP 2024, the top conference in speech processing. Definitely not a “low-bar” conference.😭",
       "image": "/images/icassp.jpeg",
-      "alt": "First conference trip",
-      "place": "Seoul, Korea",
+      "alt": "Delivering oral presentation at ICASSP 2024",
+      "featured": true,
+      "place": "Seoul, South Korea",
       "coordinates": {
         "lat": 37.5665,
         "lng": 126.9780
+      }
+    },
+    {
+      "title": "NCMMSC 2024, Urumqi",
+      "date": "2024.08",
+      "description": "A one-day escape to Tianchi Lake and the wide-open beauty of Xinjiang.",
+      "image": "/images/xinjiang.jpg",
+      "alt": "Tianchi Lake and mountain scenery in Xinjiang",
+      "featured": false,
+      "place": "Urumqi, Xinjiang, China",
+      "coordinates": {
+        "lat": 43.8256,
+        "lng": 87.6168
+      }
+    },
+    {
+      "title": "EMNLP 2024, Miami",
+      "date": "2024.11",
+      "description": "My first time in the United States. Surreal, vivid, and a little unreal.",
+      "image": "/images/emnlp24.jpg",
+      "alt": "Photo with Huck at the EMNLP venue",
+      "featured": true,
+      "place": "Miami, USA",
+      "coordinates": {
+        "lat": 25.761,
+        "lng": -80.1918
+      }
+    },
+    {
+      "title": "ACL 2025, Vienna",
+      "date": "2025.07",
+      "description": "My first trip to Europe, stunned by the grandeur of its classical streets.",
+      "image": "/images/acl25.jpg",
+      "alt": "Poster photo at the ACL venue",
+      "featured": true,
+      "place": "Vienna, Austria",
+      "coordinates": {
+        "lat": 48.2082,
+        "lng": 16.3738
+      }
+    },
+    {
+      "title": "Trip to Budapest",
+      "date": "2025.07",
+      "description": "The Danube in Budapest was impossibly beautiful.",
+      "image": "/images/budapest.jpg",
+      "alt": "The Danube riverbank at dusk",
+      "featured": false,
+      "place": "Budapest, Hungary",
+      "coordinates": {
+        "lat": 47.4979,
+        "lng": 19.0336
+      }
+    },
+    {
+      "title": "Layover in Istanbul",
+      "date": "2025.08",
+      "description": "A sunset layover at the crossroads of Europe and Asia.",
+      "image": "/images/istanbul.jpg",
+      "alt": "The Bosphorus seen from a boat",
+      "featured": false,
+      "place": "Istanbul, Turkey",
+      "coordinates": {
+        "lat": 41.0082,
+        "lng": 28.9784
+      }
+    },
+    {
+      "title": "ICLR 2026, Rio",
+      "date": "2026.04",
+      "description": "My first time in the Southern Hemisphere. Rio was dazzling, with a bit of edge.",
+      "image": "/images/rio.jpg",
+      "alt": "A Brazilian flag gifted by a vendor near the cathedral",
+      "featured": true,
+      "place": "Rio de Janeiro, Brazil",
+      "coordinates": {
+        "lat": -22.9068,
+        "lng": -43.1729
+      }
+    },
+    {
+      "title": "Layover in Panama City",
+      "date": "2026.04",
+      "description": "A clean, warm city with friendly people. Mandarin helped me get discounted fridge magnets, feeling the warmth of the overseas Chinese community.",
+      "image": "/images/panama.jpg",
+      "alt": "A Chinese shop decorated with spring couplets",
+      "featured": false,
+      "place": "Panama City, Panama",
+      "coordinates": {
+        "lat": 8.9824,
+        "lng": -79.5199
       }
     }
   ]
