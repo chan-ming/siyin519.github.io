@@ -130,7 +130,7 @@
       "authors": "Siyin Wang*, Wenyi Yu*, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Lu Lu, Yuxuan Wang, Chao Zhang",
       "venue": "ICLR 2026 Poster",
       "year": "2026",
-      "summary": "A method for using auditory LLMs to evaluate speech quality across MOS, speaker similarity, A/B testing, and natural language descriptions.",
+      "summary": "The first end-to-end model that unifies vision, speech, text and action in a streaming full-duplex framework.",
       "url": "https://arxiv.org/pdf/2510.16756",
       "codeUrl": "https://github.com/bytedance/SALMONN/tree/ELLSA",
       "tags": [
