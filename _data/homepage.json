@@ -146,7 +146,7 @@
     {
       "title": "Speech-Audio Compositional Attacks on Multimodal LLMs and Their Mitigation with SALMONN-Guard",
       "authors": "Yudong Yang, Xuezhen Zhang, Zhifeng Han, Siyin Wang, Jimin Zhuang, Zengrui Jin, Jing Shao, Guangzhi Sun, Chao Zhang",
-      "venue": "ICML 2026",
+      "venue": "ICML 2026 Poster",
       "year": "2026",
       "summary": "A study of compositional speech-audio attacks and mitigation strategies for multimodal LLMs.",
       "url": "https://arxiv.org/pdf/2511.10222",
@@ -172,7 +172,7 @@
     {
       "title": "QualiSpeech: A Speech Quality Assessment Dataset with Natural Language Reasoning and Descriptions",
       "authors": "Siyin Wang, Wenyi Yu, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Lu Lu, Yu Tsao, Junichi Yamagishi, Yuxuan Wang, Chao Zhang",
-      "venue": "ACL 2025",
+      "venue": "ACL 2025 Poster",
       "year": "2025",
       "summary": "A dataset and benchmark for speech quality assessment with natural language reasoning and descriptive feedback.",
       "url": "https://arxiv.org/pdf/2503.20290",
@@ -185,7 +185,7 @@
     {
       "title": "Audio Large Language Models Can Be Descriptive Speech Quality Evaluators",
       "authors": "Chen Chen, Yuchen Hu, Siyin Wang, Helin Wang, Zhehuai Chen, Chao Zhang, Chao-Han Huck Yang, Eng Siong Chng",
-      "venue": "ICLR 2025",
+      "venue": "ICLR 2025 Poster",
       "year": "2025",
       "summary": "A study showing how audio LLMs can produce descriptive and human-aligned speech quality evaluations.",
       "url": "https://arxiv.org/pdf/2501.17202",
@@ -198,7 +198,7 @@
     {
       "title": "Enabling Auditory Large Language Models for Automatic Speech Quality Evaluation",
       "authors": "Siyin Wang, Wenyi Yu, Yudong Yang, Changli Tang, Yixuan Li, Jimin Zhuang, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Guangzhi Sun, Lu Lu, Chao Zhang",
-      "venue": "ICASSP 2025",
+      "venue": "ICASSP 2025 Oral",
       "year": "2025",
       "summary": "Using auditory LLMs to evaluate speech quality across MOS, speaker similarity, A/B testing, and natural language descriptions.",
       "url": "https://arxiv.org/pdf/2409.16644",
@@ -224,7 +224,7 @@
     {
       "title": "Bayesian Example Selection Improves In-Context Learning for Speech, Text, and Visual Modalities",
       "authors": "Siyin Wang, Huck Yang, Ji Wu, Chao Zhang",
-      "venue": "EMNLP 2024",
+      "venue": "EMNLP 2024 Poster",
       "year": "2024",
       "summary": "A Bayesian method for selecting in-context examples across speech, text, and visual tasks.",
       "url": "https://arxiv.org/pdf/2404.14716",
@@ -237,7 +237,7 @@
     {
       "title": "Can Whisper Perform Speech-based In-context Learning?",
       "authors": "Siyin Wang, Huck Yang, Ji Wu, Chao Zhang",
-      "venue": "ICASSP 2024",
+      "venue": "ICASSP 2024 Oral",
       "year": "2024",
       "summary": "The first work of speech-based in-context learning, exploring the performance of Whisper in dialect ASR.",
       "url": "https://arxiv.org/pdf/2309.07081",
