@@ -186,7 +186,49 @@ layout: default
             {% if paper.codeUrl and paper.codeUrl != "" %}
               <a href="{{ paper.codeUrl }}">Code</a>
             {% endif %}
+            {% if paper.details.quickTake or paper.details.whyItMatters or paper.details.bibtex or paper.details.links %}
+              <button class="home-publication__details-toggle" type="button" aria-expanded="false" aria-controls="publication-details-{{ forloop.index }}">
+                Details
+              </button>
+            {% endif %}
           </div>
+          {% if paper.details.quickTake or paper.details.whyItMatters or paper.details.bibtex or paper.details.links %}
+            <div class="home-publication__details" id="publication-details-{{ forloop.index }}" hidden>
+              {% if paper.details.quickTake %}
+                <div class="home-publication__detail-block">
+                  <h4>30-sec summary</h4>
+                  <p>{{ paper.details.quickTake | escape | replace: '\n', '<br>' | newline_to_br }}</p>
+                </div>
+              {% endif %}
+              {% if paper.details.whyItMatters %}
+                <div class="home-publication__detail-block">
+                  <h4>Why it matters</h4>
+                  <p>{{ paper.details.whyItMatters | escape | replace: '\n', '<br>' | newline_to_br }}</p>
+                </div>
+              {% endif %}
+              {% if paper.details.bibtex %}
+                <div class="home-publication__detail-block">
+                  <div class="home-publication__bibtex-header">
+                    <h4>BibTeX</h4>
+                    <button class="home-publication__copy" type="button" data-copy-target="publication-bibtex-{{ forloop.index }}">Copy</button>
+                  </div>
+                  <pre id="publication-bibtex-{{ forloop.index }}"><code>{{ paper.details.bibtex | escape }}</code></pre>
+                </div>
+              {% endif %}
+              {% if paper.details.links and paper.details.links.size > 0 %}
+                <div class="home-publication__detail-block">
+                  <h4>More links</h4>
+                  <div class="home-publication__links home-publication__links--detail">
+                    {% for detail_link in paper.details.links %}
+                      {% if detail_link.url and detail_link.label %}
+                        <a href="{{ detail_link.url | escape }}">{{ detail_link.label | escape }}</a>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
         </article>
       {% endfor %}
     </div>
@@ -298,31 +340,94 @@ layout: default
         {% endif %}
         <h2 id="life-heading">{% if sections.life.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.life.emoji }}</span>{% endif %}<span>{{ sections.life.title | default: "Life & Moments" }}</span></h2>
       </div>
-      <div class="home-life">
-        {% for item in home.life %}
-          <article class="home-life__item">
-            {% assign image_src = item.image | default: "" %}
-            {% if image_src != "" %}
-              {% assign first_char = image_src | slice: 0, 1 %}
-              {% if image_src contains "://" %}
-                <img src="{{ image_src }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
-              {% elsif first_char == "/" %}
-                <img src="{{ image_src | prepend: base_path }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
-              {% else %}
-                <img src="{{ image_src | prepend: '/' | prepend: base_path }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
-              {% endif %}
-            {% endif %}
-            <div class="home-life__content">
-              {% if item.date %}
-                <time>{{ item.date }}</time>
-              {% endif %}
-              <h3>{{ item.title }}</h3>
-              {% if item.description %}
-                <p>{{ item.description | escape | replace: '\n', '<br>' | newline_to_br }}</p>
-              {% endif %}
+      <div class="home-life-map" id="life-map" data-life-view="map">
+        <div class="home-life-map__stage" aria-label="Life moments map" style="--map-marker-size: {{ sections.life.mapMarkerSize | default: '0.72rem' | escape }};">
+          <div class="home-life-map__details" aria-live="polite">
+            {% for item in home.life %}
+              <article class="home-life-map__detail" data-map-detail data-life-index="{{ forloop.index0 }}" hidden>
+                {% assign image_src = item.image | default: "" %}
+                {% if image_src != "" %}
+                  {% assign first_char = image_src | slice: 0, 1 %}
+                  {% if image_src contains "://" %}
+                    <button class="home-life-map__detail-image" type="button" data-map-image data-image-src="{{ image_src | escape }}" aria-label="View larger image for {{ item.title | escape }}">
+                      <img src="{{ image_src }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
+                    </button>
+                  {% elsif first_char == "/" %}
+                    <button class="home-life-map__detail-image" type="button" data-map-image data-image-src="{{ image_src | prepend: base_path | escape }}" aria-label="View larger image for {{ item.title | escape }}">
+                      <img src="{{ image_src | prepend: base_path }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
+                    </button>
+                  {% else %}
+                    <button class="home-life-map__detail-image" type="button" data-map-image data-image-src="{{ image_src | prepend: '/' | prepend: base_path | escape }}" aria-label="View larger image for {{ item.title | escape }}">
+                      <img src="{{ image_src | prepend: '/' | prepend: base_path }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
+                    </button>
+                  {% endif %}
+                {% endif %}
+                <div class="home-life-map__detail-content">
+                  {% if item.date %}
+                    <time>{{ item.date }}</time>
+                  {% endif %}
+                  <h3>{{ item.title }}</h3>
+                  {% if item.place %}
+                    <p class="home-life__place">{{ item.place }}</p>
+                  {% endif %}
+                  {% if item.description %}
+                    <p>{{ item.description | escape | replace: '\n', '<br>' | newline_to_br }}</p>
+                  {% endif %}
+                </div>
+                <button class="home-life-map__detail-close" type="button" data-map-clear aria-label="Close selected life moment">×</button>
+              </article>
+            {% endfor %}
+          </div>
+          <div class="home-life-map__viewport" data-map-viewport>
+            <div class="home-life-map__canvas" data-map-canvas>
+              <img class="home-life-map__image" src="{{ base_path }}/images/world-map.svg" alt="World map in equirectangular projection" loading="lazy" draggable="false">
+              <div class="home-life-map__points">
+                {% for item in home.life %}
+                  {% if item.coordinates and item.coordinates.lat and item.coordinates.lng %}
+                    <button class="home-life-map__point" type="button" data-map-point data-life-index="{{ forloop.index0 }}" data-lat="{{ item.coordinates.lat | escape }}" data-lng="{{ item.coordinates.lng | escape }}" aria-label="{{ item.title | escape }}">
+                      <span></span>
+                    </button>
+                  {% endif %}
+                {% endfor %}
+              </div>
             </div>
-          </article>
-        {% endfor %}
+          </div>
+          <div class="home-life-map__controls" aria-label="Map zoom controls">
+            <button class="home-life-map__control" type="button" data-map-zoom-out aria-label="Zoom out">-</button>
+            <label class="home-life-map__zoom">
+              <span>Zoom</span>
+              <input type="range" min="1" max="4" step="0.25" value="1" data-map-zoom>
+            </label>
+            <button class="home-life-map__control" type="button" data-map-zoom-in aria-label="Zoom in">+</button>
+            <button class="home-life-map__control home-life-map__control--reset" type="button" data-map-reset>Reset</button>
+          </div>
+          <p class="home-life-map__credit">
+            Map: Natural Earth / Wikimedia Commons
+          </p>
+        </div>
+        <div class="home-life-map__list" aria-label="Life moment selector">
+          {% for item in home.life %}
+            <article class="home-life-map__card" data-map-card data-life-index="{{ forloop.index0 }}"{% if item.coordinates and item.coordinates.lat and item.coordinates.lng %} data-has-map-point="true"{% endif %}>
+              <button type="button">
+                {% if item.date %}
+                  <time>{{ item.date }}</time>
+                {% endif %}
+                <h3>{{ item.title }}</h3>
+                {% if item.place %}
+                  <p class="home-life__place">{{ item.place }}</p>
+                {% endif %}
+              </button>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="home-life-lightbox" data-life-lightbox hidden>
+        <button class="home-life-lightbox__backdrop" type="button" data-life-lightbox-close aria-label="Close enlarged image"></button>
+        <figure>
+          <img src="" alt="" data-life-lightbox-image>
+          <figcaption data-life-lightbox-caption></figcaption>
+        </figure>
+        <button class="home-life-lightbox__close" type="button" data-life-lightbox-close aria-label="Close enlarged image">×</button>
       </div>
     </section>
   {% endif %}

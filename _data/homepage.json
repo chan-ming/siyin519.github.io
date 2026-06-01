@@ -64,7 +64,8 @@
       "kicker": "Beyond Research",
       "title": "Life & Moments",
       "titleFontSize": "1.5rem",
-      "bodyFontSize": "1rem"
+      "bodyFontSize": "1rem",
+      "mapMarkerSize": "0.6rem"
     }
   },
   "links": [
@@ -122,7 +123,18 @@
       "venue": "Nature Machine Intelligence (accepted in principle)",
       "year": "2026",
       "summary": "A comprehensive review of LLMs for audio modalities, corperated with Google DeepMind and Nvidia.",
-      "url": "https://arxiv.org/pdf/2411.18138",
+      "details": {
+        "quickTake": "A survey of how LLMs are reshaping computer audition across four pillars: audio comprehension, audio generation, speech-based interaction, and audio-visual understanding. It frames audio as a rich source of semantic, emotional, and contextual cues for more natural machine intelligence.",
+        "whyItMatters": "It gives visitors a field-level map behind my research agenda: moving from task-specific audio models toward audio-native systems that can perceive, reason, generate, and interact through sound.",
+        "bibtex": "@article{auditory_intelligence,\n  title={Towards general auditory intelligence: Large multimodal models for machine listening and speaking},\n  author={Wang, Siyin and Jin, Zengrui and Tang, Changli and Li, Qiujia and Li, Bo and Chen, Chen and Hu, Yuchen and Yu, Wenyi and Li, Yixuan and Zhuang, Jimin and Yang, Yudong and Wang, Mingqiu and Han, Michael and Ding, Yifan and Bai, Junwen and Ouyang, Tom and Chang, Shuo-yiin and Chen, Xianzhao and Tian, Xiaohai and Zhang, Jun and Lu, Lu and Sun, Guangzhi and Chen, Zhehuai and Wu, Ji and Zhou, Bowen and Wang, Yuxuan and Sainath, Tara and Wu, Yonghui and Zhang, Chao},\n  journal={Nature Machine Intelligence},\n  year={2026}\n}",
+        "links": [
+          {
+            "label": "arXiv",
+            "url": "https://arxiv.org/abs/2511.01299"
+          }
+        ]
+      },
+      "url": "https://arxiv.org/pdf/2511.01299",
       "codeUrl": "",
       "tags": [
         "Audio LLMs"
@@ -135,6 +147,17 @@
       "venue": "ICLR 2026 Poster",
       "year": "2026",
       "summary": "The first end-to-end model that unifies vision, speech, text and action in a streaming full-duplex framework.",
+      "details": {
+        "quickTake": "ELLSA is an end-to-end full-duplex model that simultaneously perceives and generates across vision, text, speech, and action. Its SA-MoE architecture routes modalities to specialized experts while sharing a unified attention backbone.",
+        "whyItMatters": "It makes full-duplex multimodal interaction concrete: the same system can support dialogue/action turn-taking, speaking while acting, context-grounded visual QA, defective-instruction rejection, and action barge-ins.",
+        "bibtex": "@inproceedings{ellsa,\n  title={End-to-end listen, look, speak and act},\n  author={Wang, Siyin and Yu, Wenyi and Chen, Xianzhao and Tian, Xiaohai and Zhang, Jun and Lu, Lu and Wang, Yuxuan and Zhang, Chao},\n  booktitle={Proc. ICLR},\n  year={2026},\n  address={Rio de Janeiro}\n}",
+        "links": [
+          {
+            "label": "Project code",
+            "url": "https://github.com/bytedance/SALMONN/tree/ELLSA"
+          }
+        ]
+      },
       "url": "https://arxiv.org/pdf/2510.16756",
       "codeUrl": "https://github.com/bytedance/SALMONN/tree/ELLSA",
       "tags": [
@@ -149,6 +172,17 @@
       "venue": "ICML 2026 Poster",
       "year": "2026",
       "summary": "A study of compositional speech-audio attacks and mitigation strategies for multimodal LLMs.",
+      "details": {
+        "quickTake": "This work introduces SACRED-Bench, a red-teaming benchmark for audio-based attacks that combine speech overlap, multi-speaker dialogue, speech-audio mixtures, and diverse spoken instruction formats.",
+        "whyItMatters": "It shows that audio is not just another input modality; it is a new safety surface. SALMONN-Guard jointly inspects speech, audio, and text, reducing attack success in the benchmark and motivating audio-aware defenses.",
+        "bibtex": "@inproceedings{sacred,\n  title={Speech-audio compositional attacks on multimodal LLMs and their mitigation with SALMONN-Guard},\n  author={Yang, Yudong and Zhang, Xuezhen and Han, Zhifeng and Wang, Siyin and Zhuang, Jimin and Jin, Zengrui and Shao, Jing and Sun, Guangzhi and Zhang, Chao},\n  booktitle={Proc. ICML},\n  year={2026},\n  address={Seoul}\n}",
+        "links": [
+          {
+            "label": "Benchmark",
+            "url": "https://huggingface.co/datasets/tsinghua-ee/SACRED-Bench"
+          }
+        ]
+      },
       "url": "https://arxiv.org/pdf/2511.10222",
       "codeUrl": "https://huggingface.co/datasets/tsinghua-ee/SACRED-Bench",
       "tags": [
@@ -162,7 +196,12 @@
       "venue": "NeurIPS 2025 Poster",
       "year": "2025",
       "summary": "A codec-free full-duplex speech LLM for simultaneous speech understanding and generation in natural conversation.",
-      "url": "https://arxiv.org/pdf/2411.18138",
+      "details": {
+        "quickTake": "SALMONN-omni is a standalone, codec-free full-duplex speech LLM. Instead of injecting audio codec tokens, it uses a dynamic thinking mechanism inside the LLM backbone to decide when to listen, speak, and transition between states.",
+        "whyItMatters": "It tackles the core friction in spoken AI interaction: modular full-duplex systems accumulate errors, while codec-injection systems can degrade on speech. SALMONN-omni moves toward a single speech-native model for turn-taking, backchanneling, echo cancellation, and context-dependent barge-in.",
+        "bibtex": "@inproceedings{salmonn_omni,\n  title={SALMONN-omni: A standalone speech LLM without codec injection for full-duplex conversation},\n  author={Yu, Wenyi and Wang, Siyin and Yang, Xiaoyu and Chen, Xianzhao and Tian, Xiaohai and Zhang, Jun and Sun, Guangzhi and Lu, Lu and Wang, Yuxuan and Zhang, Chao},\n  booktitle={Proc. NeurIPS},\n  year={2025},\n  address={San Diego}\n}"
+      },
+      "url": "https://arxiv.org/pdf/2505.17060",
       "codeUrl": "",
       "tags": [
         "Full-duplex"
@@ -175,6 +214,17 @@
       "venue": "ACL 2025 Poster",
       "year": "2025",
       "summary": "A dataset and benchmark for speech quality assessment with natural language reasoning and descriptive feedback.",
+      "details": {
+        "quickTake": "QualiSpeech reframes speech quality assessment from scalar scoring to detailed natural-language evaluation. It annotates 11 low-level quality aspects and includes comments with reasoning about noise, distortion, timing, naturalness, effort, and overall quality.",
+        "whyItMatters": "It turns speech quality evaluation into something models can explain, not only predict. The benchmark tests whether auditory LLMs can identify degradation types and temporal characteristics in a human-readable way.",
+        "bibtex": "@inproceedings{qualispeech,\n  title={QualiSpeech: A speech quality assessment dataset with natural language reasoning and descriptions},\n  author={Wang, Siyin and Yu, Wenyi and Chen, Xianzhao and Tian, Xiaohai and Zhang, Jun and Lu, Lu and Tsao, Yu and Yamagishi, Junichi and Wang, Yuxuan and Zhang, Chao},\n  booktitle={Proc. ACL},\n  year={2025},\n  address={Vienna}\n}",
+        "links": [
+          {
+            "label": "Dataset",
+            "url": "https://huggingface.co/datasets/tsinghua-ee/QualiSpeech"
+          }
+        ]
+      },
       "url": "https://arxiv.org/pdf/2503.20290",
       "codeUrl": "https://huggingface.co/datasets/tsinghua-ee/QualiSpeech",
       "tags": [
@@ -188,6 +238,11 @@
       "venue": "ICLR 2025 Poster",
       "year": "2025",
       "summary": "A study showing how audio LLMs can produce descriptive and human-aligned speech quality evaluations.",
+      "details": {
+        "quickTake": "This paper builds a natural language-based speech evaluation corpus from authentic human ratings, covering MOS, multi-dimensional quality analysis, degradation causes, and descriptive A/B comparisons.",
+        "whyItMatters": "It shows audio LLMs can become more human-aligned quality evaluators: the proposed ALLD approach improves MOS prediction and A/B testing while generating explanations that go beyond a single score.",
+        "bibtex": "@inproceedings{alld_sqa,\n  title={Audio large language models can be descriptive speech quality evaluators},\n  author={Chen, Chen and Hu, Yuchen and Wang, Siyin and Wang, Helin and Chen, Zhehuai and Zhang, Chao and Yang, Chao-Han Huck and Chng, Eng Siong},\n  booktitle={Proc. ICLR},\n  year={2025},\n  address={Singapore}\n}"
+      },
       "url": "https://arxiv.org/pdf/2501.17202",
       "codeUrl": "",
       "tags": [
@@ -201,6 +256,17 @@
       "venue": "ICASSP 2025 Oral",
       "year": "2025",
       "summary": "Using auditory LLMs to evaluate speech quality across MOS, speaker similarity, A/B testing, and natural language descriptions.",
+      "details": {
+        "quickTake": "This work adapts auditory LLMs to multiple speech quality assessment tasks, including MOS prediction, speaker similarity, A/B testing, and natural-language description generation.",
+        "whyItMatters": "It is an early bridge between specialized speech quality models and general auditory LLMs, showing that one audio-language model can cover several evaluation formats that are usually handled separately.",
+        "bibtex": "@inproceedings{auditory_sqa,\n  title={Enabling auditory large language models for automatic speech quality evaluation},\n  author={Wang, Siyin and Yu, Wenyi and Yang, Yudong and Tang, Changli and Li, Yixuan and Zhuang, Jimin and Chen, Xianzhao and Tian, Xiaohai and Zhang, Jun and Sun, Guangzhi and Lu, Lu and Zhang, Chao},\n  booktitle={Proc. ICASSP},\n  year={2025},\n  address={Hyderabad}\n}",
+        "links": [
+          {
+            "label": "Code",
+            "url": "https://github.com/bytedance/SALMONN/tree/speech_quality_assessment"
+          }
+        ]
+      },
       "url": "https://arxiv.org/pdf/2409.16644",
       "codeUrl": "https://github.com/bytedance/SALMONN/tree/speech_quality_assessment",
       "tags": [
@@ -214,6 +280,11 @@
       "venue": "ISCSLP 2024 Best Student Paper Candidate",
       "year": "2024",
       "summary": "A method for speaker diarization with unlimited number of speakers using dynamic linear.",
+      "details": {
+        "quickTake": "This paper studies speaker diarization when the number of speakers is not fixed in advance, using a dynamic linear approach to avoid a hard limit on speaker classes.",
+        "whyItMatters": "It captures an earlier thread in my speech research: making multi-speaker processing more flexible for realistic conversations, where systems must answer who spoke when without knowing the speaker count beforehand.",
+        "bibtex": "@inproceedings{dynamic_linear_diarization,\n  title={Speaker diarization for unlimited number of speakers using dynamic linear},\n  author={Wang, Siyin and Zhang, Chao},\n  booktitle={Proc. ISCSLP},\n  pages={368--372},\n  year={2024},\n  address={Beijing}\n}"
+      },
       "url": "https://ieeexplore.ieee.org/abstract/document/10800134",
       "codeUrl": "",
       "tags": [
@@ -227,6 +298,11 @@
       "venue": "EMNLP 2024 Poster",
       "year": "2024",
       "summary": "A Bayesian method for selecting in-context examples across speech, text, and visual tasks.",
+      "details": {
+        "quickTake": "ByCS selects in-context examples by applying Bayes' theorem in reverse: instead of only estimating output from input and examples, it uses inverse inference conditioned on the test input to judge which examples are likely to help.",
+        "whyItMatters": "It makes example selection less heuristic and more portable. The same idea is evaluated across speech, text, and image tasks, connecting in-context learning with multimodal robustness.",
+        "bibtex": "@inproceedings{bycs,\n  title={Bayesian example selection improves in-context learning for speech, text, and visual modalities},\n  author={Wang, Siyin and Yang, Chao-Han Huck and Wu, Ji and Zhang, Chao},\n  booktitle={Proc. EMNLP},\n  year={2024},\n  address={Miami}\n}"
+      },
       "url": "https://arxiv.org/pdf/2404.14716",
       "codeUrl": "",
       "tags": [
@@ -240,6 +316,11 @@
       "venue": "ICASSP 2024 Oral",
       "year": "2024",
       "summary": "The first work of speech-based in-context learning, exploring the performance of Whisper in dialect ASR.",
+      "details": {
+        "quickTake": "This paper tests whether Whisper can adapt from labelled speech examples placed in context. The proposed SICL method performs test-time adaptation without gradient updates and improves dialect ASR with only a few examples.",
+        "whyItMatters": "It opens a speech-side counterpart to text in-context learning: spoken examples can steer an ASR model toward dialect, speaker, and lexical patterns without retraining.",
+        "bibtex": "@inproceedings{sicl,\n  title={Can Whisper perform speech-based in-context learning?},\n  author={Wang, Siyin and Yang, Chao-Han Huck and Wu, Ji and Zhang, Chao},\n  booktitle={Proc. ICASSP},\n  year={2024},\n  address={Seoul}\n}"
+      },
       "url": "https://arxiv.org/pdf/2309.07081",
       "codeUrl": "",
       "tags": [
@@ -293,24 +374,63 @@
   "life": [
     {
       "title": "Beijing Winter Olympics",
-      "date": "2022",
+      "date": "2022.02",
       "description": "Serving at the opening ceremony of Beijing 2022. I'm the one wearing a green top in the upper left.",
       "image": "/images/dongao.jpg",
-      "alt": "Siyin Wang at the Beijing Winter Olympics"
+      "alt": "Siyin Wang at the Beijing Winter Olympics",
+      "place": "Beijing, China",
+      "coordinates": {
+        "lat": 39.9042,
+        "lng": 116.4074
+      }
+    },
+    {
+      "title": "Trip to Yunnan",
+      "date": "2022.08",
+      "description": "滇池日落",
+      "image": "/images/yunnan.jpg",
+      "alt": "Trip to Yunnan",
+      "place": "Kunming, China",
+      "coordinates": {
+        "lat": 25.0438,
+        "lng": 102.7045
+      }
     },
     {
       "title": "Undergraduate Graduation",
-      "date": "2023",
+      "date": "2023.06",
       "description": "Photo taken at Remmin University of China (RUC), my girlfriend's alma mater and also my second “alma mater“.",
       "image": "/images/undergraduate.jpg",
-      "alt": "Undergraduate graduation photo"
+      "alt": "Undergraduate graduation photo",
+      "place": "Beijing, China",
+      "coordinates": {
+        "lat": 39.9699,
+        "lng": 116.3176
+      }
+    },
+    {
+      "title": "Overseas Social Practice",
+      "date": "2023.08",
+      "description": "花火大会前的宁静时刻",
+      "image": "/images/japan.jpg",
+      "alt": "Overseas Social Practice",
+      "place": "Osaka, Japan",
+      "coordinates": {
+        "lat": 34.693,
+        "lng": 135.5014
+      }
     },
     {
       "title": "First Conference Trip",
-      "date": "2024",
+      "date": "2024.04",
       "description": "First academic conference experience at ICASSP 2024, the top conference in speech processing. Definitely not a “low-bar” conference.😭",
       "image": "/images/icassp.jpeg",
-      "alt": "First conference trip"
+      "alt": "First conference trip",
+      "place": "Seoul, Korea",
+      "coordinates": {
+        "lat": 37.5665,
+        "lng": 126.9780
+      }
     }
   ]
 }
