@@ -255,11 +255,11 @@
       "period": "2023 - Present",
       "title": "Ph.D. Student",
       "institution": "Department of Electronic Engineering, Tsinghua University",
-      "description": "Research on speech and audio large language models, multimodal full-duplex interaction, and speech in-context learning.",
       "advisor": {
         "name": "Chao Zhang",
         "url": "http://mi.eng.cam.ac.uk/~cz277/"
-      }
+      },
+      "description": "Research on speech and audio large language models, multimodal full-duplex interaction, and speech in-context learning."
     }
   ],
   "experience": [
