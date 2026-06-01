@@ -274,9 +274,9 @@
         { name: "period", label: "Period" },
         { name: "title", label: "Title" },
         { name: "institution", label: "Institution", wide: true },
-        { name: "description", label: "Description", textarea: true, wide: true },
         { name: "advisor.name", label: "Advisor name" },
-        { name: "advisor.url", label: "Advisor URL" }
+        { name: "advisor.url", label: "Advisor URL" },
+        { name: "description", label: "Description", textarea: true, wide: true }
       ]),
       renderObjectList("Experience", "experience", [
         { name: "period", label: "Period" },

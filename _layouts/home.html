@@ -202,9 +202,6 @@ layout: default
             <div>
               <h3>{{ item.title }}</h3>
               <p class="home-timeline__institution">{{ item.institution }}</p>
-              {% if item.description %}
-                <p>{{ item.description }}</p>
-              {% endif %}
               {% if item.advisor and item.advisor.name %}
                 <p class="home-timeline__advisor">
                   Supervised by
@@ -214,6 +211,9 @@ layout: default
                     {{ item.advisor.name | escape }}
                   {% endif %}
                 </p>
+              {% endif %}
+              {% if item.description %}
+                <p>{{ item.description | escape | replace: '\n', '<br>' | newline_to_br }}</p>
               {% endif %}
             </div>
           </article>
@@ -242,7 +242,7 @@ layout: default
               <h3>{{ item.title }}</h3>
               <p class="home-timeline__institution">{{ item.institution }}</p>
               {% if item.description %}
-                <p>{{ item.description }}</p>
+                <p>{{ item.description | escape | replace: '\n', '<br>' | newline_to_br }}</p>
               {% endif %}
             </div>
           </article>
@@ -268,7 +268,7 @@ layout: default
           <article>
             <h3>{{ item.title }}</h3>
             {% if item.description %}
-              <p>{{ item.description }}</p>
+              <p>{{ item.description | escape | replace: '\n', '<br>' | newline_to_br }}</p>
             {% endif %}
           </article>
         {% endfor %}
@@ -308,7 +308,7 @@ layout: default
               {% endif %}
               <h3>{{ item.title }}</h3>
               {% if item.description %}
-                <p>{{ item.description }}</p>
+                <p>{{ item.description | escape | replace: '\n', '<br>' | newline_to_br }}</p>
               {% endif %}
             </div>
           </article>
