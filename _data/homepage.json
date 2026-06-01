@@ -91,7 +91,7 @@
   ],
   "news": [
     {
-      "date": "2026.04",
+      "date": "2026.05",
       "text": "Our review paper on audio LLMs is accepted in principle by Nature Machine Intelligence.",
       "url": "https://arxiv.org/abs/2511.01299"
     },
@@ -196,7 +196,7 @@
       "authors": "Siyin Wang, Wenyi Yu, Yudong Yang, Changli Tang, Yixuan Li, Jimin Zhuang, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Guangzhi Sun, Lu Lu, Chao Zhang",
       "venue": "ICASSP 2025",
       "year": "2025",
-      "summary": "A method for using auditory LLMs to evaluate speech quality across MOS, speaker similarity, A/B testing, and natural language descriptions.",
+      "summary": "Using auditory LLMs to evaluate speech quality across MOS, speaker similarity, A/B testing, and natural language descriptions.",
       "url": "https://arxiv.org/pdf/2409.16644",
       "codeUrl": "https://github.com/bytedance/SALMONN/tree/speech_quality_assessment",
       "tags": [
