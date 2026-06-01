@@ -9,6 +9,7 @@
   const countNode = document.querySelector(".home-publication-count");
   const emptyNode = document.querySelector(".home-publications__empty");
   const publicationTitle = document.getElementById("publications-heading");
+  const publicationTitleText = publicationTitle ? publicationTitle.querySelector("[data-publication-title-text]") : null;
 
   const normalize = (value) => String(value || "").trim().toLowerCase();
 
@@ -84,8 +85,8 @@
     if (emptyNode) {
       emptyNode.hidden = visibleCount !== 0;
     }
-    if (publicationTitle) {
-      publicationTitle.textContent = hasActiveFilter
+    if (publicationTitleText) {
+      publicationTitleText.textContent = hasActiveFilter
         ? publicationTitle.dataset.filteredTitle || "Publications"
         : publicationTitle.dataset.defaultTitle || "Featured Publications";
     }

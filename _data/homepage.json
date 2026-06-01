@@ -7,7 +7,7 @@
     "location": "Beijing, China",
     "email": "wangsiyi23@mails.tsinghua.edu.cn",
     "avatar": "/images/profile.png",
-    "tagline": "Speech and audio large language models, multimodal interaction, and speech quality evaluation.",
+    "tagline": "Speech LLMs and multimodal full-duplex interaction.",
     "researchInterests": [
       "Speech and Audio LLMs",
       "Multimodal full-duplex Interaction",
@@ -17,40 +17,53 @@
   },
   "sections": {
     "about": {
+      "emoji": "👋",
       "kicker": "Profile",
       "title": "About Me",
-      "titleFontSize": "1.65rem",
+      "titleFontSize": "1.5rem",
       "bodyFontSize": "1rem"
     },
     "news": {
+      "emoji": "✨",
       "kicker": "Updates",
       "title": "News",
-      "titleFontSize": "1.65rem",
+      "titleFontSize": "1.5rem",
       "bodyFontSize": "1rem"
     },
     "publications": {
+      "emoji": "📚",
       "kicker": "Research",
       "title": "Featured Publications",
       "filteredTitle": "Publications",
-      "titleFontSize": "1.65rem",
+      "titleFontSize": "1.5rem",
       "bodyFontSize": "1rem"
     },
     "education": {
+      "emoji": "🎓",
       "kicker": "Training",
       "title": "Education",
-      "titleFontSize": "1.65rem",
+      "titleFontSize": "1.5rem",
       "bodyFontSize": "1rem"
     },
     "experience": {
+      "emoji": "💼",
       "kicker": "Work",
       "title": "Experience",
-      "titleFontSize": "1.65rem",
+      "titleFontSize": "1.5rem",
       "bodyFontSize": "1rem"
     },
     "service": {
+      "emoji": "🤝",
       "kicker": "Service",
       "title": "Academic Service",
-      "titleFontSize": "1.65rem",
+      "titleFontSize": "1.5rem",
+      "bodyFontSize": "1rem"
+    },
+    "life": {
+      "emoji": "📷",
+      "kicker": "Beyond Research",
+      "title": "Life & Moments",
+      "titleFontSize": "1.5rem",
       "bodyFontSize": "1rem"
     }
   },
@@ -62,6 +75,10 @@
     {
       "label": "OpenReview",
       "url": "https://openreview.net/profile?id=~Siyin_Wang2"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/siyin-wang-26809432a"
     },
     {
       "label": "Email",
@@ -259,6 +276,29 @@
     {
       "title": "Reviewer Service",
       "description": "ICASSP, ASRU, SLT, ACL ARR, ICLR, NeurIPS, IEEE TASLP"
+    }
+  ],
+  "life": [
+    {
+      "title": "Beijing Winter Olympics",
+      "date": "2022",
+      "description": "Serving at the opening ceremony of Beijing 2022. I'm the one wearing a green top in the upper left.",
+      "image": "/images/dongao.jpg",
+      "alt": "Siyin Wang at the Beijing Winter Olympics"
+    },
+    {
+      "title": "Undergraduate Graduation",
+      "date": "2023",
+      "description": "Photo taken at Remmin University of China (RUC), my girlfriend's alma mater and also my second “alma mater“.",
+      "image": "/images/undergraduate.jpg",
+      "alt": "Undergraduate graduation photo"
+    },
+    {
+      "title": "First Conference Trip",
+      "date": "2024",
+      "description": "First academic conference experience at ICASSP 2024, the top conference in speech processing. Definitely not a “low-bar” conference.😭",
+      "image": "/images/icassp.jpeg",
+      "alt": "First conference trip"
     }
   ]
 }

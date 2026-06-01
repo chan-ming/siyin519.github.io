@@ -44,6 +44,7 @@ layout: default
     <a href="#education">{{ sections.education.title | default: "Education" }}</a>
     <a href="#experience">{{ sections.experience.title | default: "Experience" }}</a>
     <a href="#service">{{ sections.service.title | default: "Academic Service" }}</a>
+    <a href="#life">{{ sections.life.title | default: "Life & Moments" }}</a>
   </nav>
 
   <section class="home-section home-about" id="about" aria-labelledby="about-heading" style="--section-title-size: {{ sections.about.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.about.bodyFontSize | default: '1rem' | escape }};">
@@ -55,7 +56,7 @@ layout: default
       {% if about_kicker != "" %}
         <p class="home-section__kicker">{{ about_kicker }}</p>
       {% endif %}
-      <h2 id="about-heading">{{ sections.about.title | default: "About Me" }}</h2>
+      <h2 id="about-heading">{% if sections.about.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.about.emoji }}</span>{% endif %}<span>{{ sections.about.title | default: "About Me" }}</span></h2>
     </div>
     <div class="home-about__body">
       {% for paragraph in home.about %}
@@ -81,7 +82,7 @@ layout: default
         {% if news_kicker != "" %}
           <p class="home-section__kicker">{{ news_kicker }}</p>
         {% endif %}
-        <h2 id="news-heading">{{ sections.news.title | default: "News" }}</h2>
+        <h2 id="news-heading">{% if sections.news.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.news.emoji }}</span>{% endif %}<span>{{ sections.news.title | default: "News" }}</span></h2>
       </div>
       <ol class="home-news">
         {% for item in home.news %}
@@ -108,7 +109,7 @@ layout: default
         {% if publications_kicker != "" %}
           <p class="home-section__kicker">{{ publications_kicker }}</p>
         {% endif %}
-        <h2 id="publications-heading" data-default-title="{{ sections.publications.title | default: 'Featured Publications' | escape }}" data-filtered-title="{{ sections.publications.filteredTitle | default: 'Publications' | escape }}">{{ sections.publications.title | default: "Featured Publications" }}</h2>
+        <h2 id="publications-heading" data-default-title="{{ sections.publications.title | default: 'Featured Publications' | escape }}" data-filtered-title="{{ sections.publications.filteredTitle | default: 'Publications' | escape }}">{% if sections.publications.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.publications.emoji }}</span>{% endif %}<span data-publication-title-text>{{ sections.publications.title | default: "Featured Publications" }}</span></h2>
       </div>
       <a class="home-section__link" href="https://scholar.google.com/citations?user=83dHPfMAAAAJ">Google Scholar</a>
     </div>
@@ -192,7 +193,7 @@ layout: default
         {% if education_kicker != "" %}
           <p class="home-section__kicker">{{ education_kicker }}</p>
         {% endif %}
-        <h2 id="education-heading">{{ sections.education.title | default: "Education" }}</h2>
+        <h2 id="education-heading">{% if sections.education.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.education.emoji }}</span>{% endif %}<span>{{ sections.education.title | default: "Education" }}</span></h2>
       </div>
       <div class="home-timeline">
         {% for item in home.education %}
@@ -221,7 +222,7 @@ layout: default
         {% if experience_kicker != "" %}
           <p class="home-section__kicker">{{ experience_kicker }}</p>
         {% endif %}
-        <h2 id="experience-heading">{{ sections.experience.title | default: "Experience" }}</h2>
+        <h2 id="experience-heading">{% if sections.experience.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.experience.emoji }}</span>{% endif %}<span>{{ sections.experience.title | default: "Experience" }}</span></h2>
       </div>
       <div class="home-timeline">
         {% for item in home.experience %}
@@ -250,7 +251,7 @@ layout: default
         {% if service_kicker != "" %}
           <p class="home-section__kicker">{{ service_kicker }}</p>
         {% endif %}
-        <h2 id="service-heading">{{ sections.service.title | default: "Academic Service" }}</h2>
+        <h2 id="service-heading">{% if sections.service.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.service.emoji }}</span>{% endif %}<span>{{ sections.service.title | default: "Academic Service" }}</span></h2>
       </div>
       <div class="home-service">
         {% for item in home.service %}
@@ -259,6 +260,47 @@ layout: default
             {% if item.description %}
               <p>{{ item.description }}</p>
             {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if home.life and home.life.size > 0 %}
+    <section class="home-section" id="life" aria-labelledby="life-heading" style="--section-title-size: {{ sections.life.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.life.bodyFontSize | default: '1rem' | escape }};">
+      <div class="home-section__header">
+        {% assign life_kicker = "Beyond Research" %}
+        {% if sections.life.kicker != nil %}
+          {% assign life_kicker = sections.life.kicker %}
+        {% endif %}
+        {% if life_kicker != "" %}
+          <p class="home-section__kicker">{{ life_kicker }}</p>
+        {% endif %}
+        <h2 id="life-heading">{% if sections.life.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.life.emoji }}</span>{% endif %}<span>{{ sections.life.title | default: "Life & Moments" }}</span></h2>
+      </div>
+      <div class="home-life">
+        {% for item in home.life %}
+          <article class="home-life__item">
+            {% assign image_src = item.image | default: "" %}
+            {% if image_src != "" %}
+              {% assign first_char = image_src | slice: 0, 1 %}
+              {% if image_src contains "://" %}
+                <img src="{{ image_src }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
+              {% elsif first_char == "/" %}
+                <img src="{{ image_src | prepend: base_path }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
+              {% else %}
+                <img src="{{ image_src | prepend: '/' | prepend: base_path }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
+              {% endif %}
+            {% endif %}
+            <div class="home-life__content">
+              {% if item.date %}
+                <time>{{ item.date }}</time>
+              {% endif %}
+              <h3>{{ item.title }}</h3>
+              {% if item.description %}
+                <p>{{ item.description }}</p>
+              {% endif %}
+            </div>
           </article>
         {% endfor %}
       </div>

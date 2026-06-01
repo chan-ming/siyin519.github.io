@@ -21,14 +21,16 @@
 
   const clone = (value) => JSON.parse(JSON.stringify(value));
   const sectionConfig = [
-    { key: "about", label: "About", kicker: "Profile", title: "About Me", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
-    { key: "news", label: "News", kicker: "Updates", title: "News", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
-    { key: "publications", label: "Publications", kicker: "Research", title: "Featured Publications", filteredTitle: "Publications", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
-    { key: "education", label: "Education", kicker: "Training", title: "Education", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
-    { key: "experience", label: "Experience", kicker: "Work", title: "Experience", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
-    { key: "service", label: "Academic Service", kicker: "Service", title: "Academic Service", titleFontSize: "1.65rem", bodyFontSize: "1rem" }
+    { key: "about", label: "About", emoji: "👋", kicker: "Profile", title: "About Me", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "news", label: "News", emoji: "✨", kicker: "Updates", title: "News", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "publications", label: "Publications", emoji: "📚", kicker: "Research", title: "Featured Publications", filteredTitle: "Publications", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "education", label: "Education", emoji: "🎓", kicker: "Training", title: "Education", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "experience", label: "Experience", emoji: "💼", kicker: "Work", title: "Experience", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "service", label: "Academic Service", emoji: "🤝", kicker: "Service", title: "Academic Service", titleFontSize: "1.65rem", bodyFontSize: "1rem" },
+    { key: "life", label: "Life & Moments", emoji: "📷", kicker: "Beyond Research", title: "Life & Moments", titleFontSize: "1.65rem", bodyFontSize: "1rem" }
   ];
   const sectionDefaults = Object.fromEntries(sectionConfig.map((section) => [section.key, {
+    emoji: section.emoji,
     kicker: section.kicker,
     title: section.title,
     ...(section.filteredTitle ? { filteredTitle: section.filteredTitle } : {}),
@@ -68,9 +70,9 @@
     },
     education: { period: "", title: "", institution: "", description: "" },
     experience: { period: "", title: "", institution: "", description: "" },
-    service: { title: "", description: "" }
+    service: { title: "", description: "" },
+    life: { title: "", date: "", description: "", image: "", alt: "" }
   };
-
   const html = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
     "&": "&amp;",
     "<": "&lt;",
@@ -213,6 +215,7 @@
   const renderSectionSettings = () => {
     const rows = sectionConfig.map((section) => {
       const fields = [
+        { name: "emoji", label: "Emoji" },
         { name: "kicker", label: "Small heading (blank hides it)" },
         { name: "title", label: "Section title" },
         { name: "titleFontSize", label: "Title font size" },
@@ -282,6 +285,13 @@
       renderObjectList("Academic Service", "service", [
         { name: "title", label: "Title", wide: true },
         { name: "description", label: "Description", textarea: true, wide: true }
+      ]),
+      renderObjectList("Life & Moments", "life", [
+        { name: "title", label: "Title" },
+        { name: "date", label: "Date" },
+        { name: "image", label: "Image path", wide: true },
+        { name: "alt", label: "Image alt text", wide: true },
+        { name: "description", label: "Description", textarea: true, wide: true }
       ])
     ].join("");
   };
@@ -316,6 +326,7 @@
     sectionConfig.forEach((section) => {
       const incoming = data.sections && data.sections[section.key] ? data.sections[section.key] : {};
       next.sections[section.key] = {
+        emoji: String(incoming.emoji ?? section.emoji).trim(),
         kicker: String(incoming.kicker ?? section.kicker).trim(),
         title: String(incoming.title ?? section.title).trim() || section.title,
         titleFontSize: normalizeFontSize(incoming.titleFontSize, section.titleFontSize),
@@ -336,6 +347,7 @@
     next.education = (next.education || []).filter(itemHasContent);
     next.experience = (next.experience || []).filter(itemHasContent);
     next.service = (next.service || []).filter(itemHasContent);
+    next.life = (next.life || []).filter(itemHasContent);
     return next;
   };
 
@@ -344,6 +356,7 @@
     const aboutSection = data.sections.about;
     const newsSection = data.sections.news;
     const publicationsSection = data.sections.publications;
+    const lifeSection = data.sections.life;
     const links = (data.links || []).map((link) => `<a href="${html(link.url)}">${html(link.label)}</a>`).join(" ");
     const interests = (data.profile.researchInterests || []).map((tag) => `<span>${html(tag)}</span>`).join("");
     const news = (data.news || []).slice(0, 5).map((item) => `<p><strong>${html(item.date)}</strong> ${html(item.text)}</p>`).join("");
@@ -354,6 +367,14 @@
         <p>${html(paper.authors)}</p>
       </article>
     `).join("");
+    const life = (data.life || []).map((item) => `
+      <article class="admin-preview__publication">
+        ${item.image ? `<p>${html(item.image)}</p>` : ""}
+        <h3>${html(item.title)}</h3>
+        <p>${html(item.date || "")}</p>
+        <p>${html(item.description || "")}</p>
+      </article>
+    `).join("");
 
     preview.innerHTML = `
       <h2>${html(data.profile.name || "Name")}</h2>
@@ -361,12 +382,14 @@
       <p>${html(data.profile.tagline || "")}</p>
       <p>${links}</p>
       <div class="home-tags">${interests}</div>
-      <h3 style="font-size: ${html(aboutSection.titleFontSize)}">${html(aboutSection.title)}</h3>
+      <h3 style="font-size: ${html(aboutSection.titleFontSize)}">${html(aboutSection.emoji)} ${html(aboutSection.title)}</h3>
       ${(data.about || []).map((paragraph) => `<p style="font-size: ${html(aboutSection.bodyFontSize)}">${html(paragraph)}</p>`).join("")}
-      <h3 style="font-size: ${html(newsSection.titleFontSize)}">${html(newsSection.title)}</h3>
+      <h3 style="font-size: ${html(newsSection.titleFontSize)}">${html(newsSection.emoji)} ${html(newsSection.title)}</h3>
       ${news || "<p>No news items.</p>"}
-      <h3 style="font-size: ${html(publicationsSection.titleFontSize)}">${html(publicationsSection.title)}</h3>
+      <h3 style="font-size: ${html(publicationsSection.titleFontSize)}">${html(publicationsSection.emoji)} ${html(publicationsSection.title)}</h3>
       ${publications || "<p>No publications.</p>"}
+      <h3 style="font-size: ${html(lifeSection.titleFontSize)}">${html(lifeSection.emoji)} ${html(lifeSection.title)}</h3>
+      ${life || "<p>No life moments.</p>"}
     `;
   };
 

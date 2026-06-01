@@ -26,5 +26,8 @@ main:
   - title: "Service"
     url: /#service
 
+  - title: "Life"
+    url: /#life
+
   - title: "Google Scholar"
     url: https://scholar.google.com/citations?user=83dHPfMAAAAJ
