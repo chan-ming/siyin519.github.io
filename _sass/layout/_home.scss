@@ -406,6 +406,10 @@ html[data-theme="dark"] .home-timeline__item time {
   font-weight: 700;
 }
 
+.home-timeline__advisor {
+  margin: 0.45rem 0 0;
+}
+
 .home-service article {
   padding: 1rem 0;
   border-bottom: 1px solid var(--global-border-color);

@@ -68,7 +68,7 @@
       tags: [],
       featured: false
     },
-    education: { period: "", title: "", institution: "", description: "" },
+    education: { period: "", title: "", institution: "", description: "", advisor: { name: "", url: "" } },
     experience: { period: "", title: "", institution: "", description: "" },
     service: { title: "", description: "" },
     life: { title: "", date: "", description: "", image: "", alt: "" }
@@ -274,7 +274,9 @@
         { name: "period", label: "Period" },
         { name: "title", label: "Title" },
         { name: "institution", label: "Institution", wide: true },
-        { name: "description", label: "Description", textarea: true, wide: true }
+        { name: "description", label: "Description", textarea: true, wide: true },
+        { name: "advisor.name", label: "Advisor name" },
+        { name: "advisor.url", label: "Advisor URL" }
       ]),
       renderObjectList("Experience", "experience", [
         { name: "period", label: "Period" },
@@ -303,6 +305,9 @@
     return Object.values(item || {}).some((value) => {
       if (Array.isArray(value)) {
         return value.length > 0;
+      }
+      if (value && typeof value === "object") {
+        return itemHasContent(value);
       }
       if (typeof value === "boolean") {
         return value;
@@ -344,7 +349,13 @@
       tags: splitTags(Array.isArray(paper.tags) ? paper.tags.join(",") : paper.tags),
       featured: Boolean(paper.featured)
     }));
-    next.education = (next.education || []).filter(itemHasContent);
+    next.education = (next.education || []).filter(itemHasContent).map((item) => ({
+      ...item,
+      advisor: {
+        name: String(item.advisor?.name || "").trim(),
+        url: String(item.advisor?.url || "").trim()
+      }
+    }));
     next.experience = (next.experience || []).filter(itemHasContent);
     next.service = (next.service || []).filter(itemHasContent);
     next.life = (next.life || []).filter(itemHasContent);

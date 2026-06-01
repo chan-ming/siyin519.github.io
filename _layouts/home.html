@@ -205,6 +205,16 @@ layout: default
               {% if item.description %}
                 <p>{{ item.description }}</p>
               {% endif %}
+              {% if item.advisor and item.advisor.name %}
+                <p class="home-timeline__advisor">
+                  Supervised by
+                  {% if item.advisor.url %}
+                    <a href="{{ item.advisor.url | escape }}">{{ item.advisor.name | escape }}</a>
+                  {% else %}
+                    {{ item.advisor.name | escape }}
+                  {% endif %}
+                </p>
+              {% endif %}
             </div>
           </article>
         {% endfor %}
