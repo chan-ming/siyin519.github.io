@@ -211,10 +211,15 @@
     const mapDetails = Array.from(document.querySelectorAll("[data-map-detail]"));
     const clearButtons = Array.from(document.querySelectorAll("[data-map-clear]"));
     const imageButtons = Array.from(document.querySelectorAll("[data-map-image]"));
+    const lifeMap = document.querySelector("[data-life-view='map']");
+    const homepageDataNode = document.getElementById("homepage-data");
     const lightbox = document.querySelector("[data-life-lightbox]");
     const lightboxImage = document.querySelector("[data-life-lightbox-image]");
     const lightboxCaption = document.querySelector("[data-life-lightbox-caption]");
     const lightboxCloseButtons = Array.from(document.querySelectorAll("[data-life-lightbox-close]"));
+    const lightboxPrev = document.querySelector("[data-life-image-prev]");
+    const lightboxNext = document.querySelector("[data-life-image-next]");
+    const lightboxCount = document.querySelector("[data-life-image-count]");
     const momentSwitcher = document.querySelector("[data-map-switcher]");
     const momentSwitcherCount = document.querySelector("[data-map-switcher-count]");
     const momentPrev = document.querySelector("[data-map-prev]");
@@ -233,8 +238,60 @@
       activeGroupIndexes: [],
       activeGroupPosition: 0
     };
+    const galleryState = {
+      lifeIndex: "",
+      imageIndex: 0
+    };
 
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+    const basePath = lifeMap ? lifeMap.dataset.basePath || "" : "";
+    let homepageData = {};
+    try {
+      homepageData = homepageDataNode ? JSON.parse(homepageDataNode.textContent || "{}") : {};
+    } catch (error) {
+      homepageData = {};
+    }
+
+    const resolveImageSrc = (src) => {
+      const value = String(src || "").trim();
+      if (!value) {
+        return "";
+      }
+      if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(value)) {
+        return value;
+      }
+      const normalizedBase = basePath.endsWith("/") ? basePath.slice(0, -1) : basePath;
+      if (value.startsWith("/")) {
+        return `${normalizedBase}${value}`;
+      }
+      return `${normalizedBase}/${value}`;
+    };
+
+    const normalizeGalleryItem = (entry, fallbackAlt) => {
+      if (typeof entry === "string") {
+        return {
+          src: resolveImageSrc(entry),
+          alt: fallbackAlt
+        };
+      }
+      const image = entry || {};
+      return {
+        src: resolveImageSrc(image.src || image.image || image.url),
+        alt: image.alt || fallbackAlt
+      };
+    };
+
+    const lifeGalleries = Array.isArray(homepageData.life)
+      ? homepageData.life.map((item) => {
+        const fallbackAlt = item.alt || item.title || "";
+        const configuredImages = Array.isArray(item.images) ? item.images : [];
+        const gallery = configuredImages.map((entry) => normalizeGalleryItem(entry, fallbackAlt)).filter((entry) => entry.src);
+        if (gallery.length) {
+          return gallery;
+        }
+        return item.image ? [normalizeGalleryItem({ src: item.image, alt: fallbackAlt }, fallbackAlt)] : [];
+      })
+      : [];
     const getPointIndexes = (point) => String(point.dataset.lifeIndexes || point.dataset.lifeIndex || "").split(",").filter(Boolean);
     const pointIncludesIndex = (point, index) => getPointIndexes(point).includes(String(index));
     const findPointForIndex = (index) => mapPoints.find((point) => !point.hidden && pointIncludesIndex(point, index));
@@ -363,6 +420,63 @@
       setActiveMoment(indexes[nextPosition]);
     };
 
+    const updateDetailImage = (lifeIndex, imageIndex) => {
+      const gallery = lifeGalleries[Number(lifeIndex)] || [];
+      const image = gallery[imageIndex];
+      const button = imageButtons.find((item) => item.dataset.lifeIndex === String(lifeIndex));
+      if (!image || !button) {
+        return;
+      }
+      const img = button.querySelector("img");
+      button.dataset.imageIndex = String(imageIndex);
+      button.dataset.imageSrc = image.src;
+      if (img) {
+        img.src = image.src;
+        img.alt = image.alt || "";
+      }
+    };
+
+    const updateLightboxControls = () => {
+      const gallery = lifeGalleries[Number(galleryState.lifeIndex)] || [];
+      const hasChoices = gallery.length > 1;
+      [lightboxPrev, lightboxNext].forEach((button) => {
+        if (button) {
+          button.hidden = !hasChoices;
+        }
+      });
+      if (lightboxCount) {
+        lightboxCount.hidden = !hasChoices;
+        lightboxCount.textContent = hasChoices ? `${galleryState.imageIndex + 1} / ${gallery.length}` : "1 / 1";
+      }
+    };
+
+    const showGalleryImage = (lifeIndex, imageIndex) => {
+      const gallery = lifeGalleries[Number(lifeIndex)] || [];
+      if (!gallery.length || !lightbox || !lightboxImage) {
+        return;
+      }
+      const nextIndex = (Number(imageIndex) + gallery.length) % gallery.length;
+      const image = gallery[nextIndex];
+      galleryState.lifeIndex = String(lifeIndex);
+      galleryState.imageIndex = nextIndex;
+      updateDetailImage(lifeIndex, nextIndex);
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt || "";
+      if (lightboxCaption) {
+        lightboxCaption.textContent = image.alt || "";
+      }
+      lightbox.hidden = false;
+      updateLightboxControls();
+    };
+
+    const switchGalleryImage = (direction) => {
+      const gallery = lifeGalleries[Number(galleryState.lifeIndex)] || [];
+      if (gallery.length <= 1) {
+        return;
+      }
+      showGalleryImage(galleryState.lifeIndex, galleryState.imageIndex + direction);
+    };
+
     positionMapPoints();
     applyMapTransform();
 
@@ -403,30 +517,42 @@
       if (lightboxCaption) {
         lightboxCaption.textContent = "";
       }
+      if (lightboxCount) {
+        lightboxCount.hidden = true;
+      }
     };
 
     imageButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        if (!lightbox || !lightboxImage) {
-          return;
-        }
-        const image = button.querySelector("img");
-        lightboxImage.src = button.dataset.imageSrc || (image ? image.src : "");
-        lightboxImage.alt = image ? image.alt : "";
-        if (lightboxCaption) {
-          lightboxCaption.textContent = image ? image.alt : "";
-        }
-        lightbox.hidden = false;
+        const detail = button.closest("[data-map-detail]");
+        const lifeIndex = button.dataset.lifeIndex || (detail ? detail.dataset.lifeIndex : "");
+        showGalleryImage(lifeIndex, Number(button.dataset.imageIndex || 0));
       });
     });
+
+    if (lightboxPrev) {
+      lightboxPrev.addEventListener("click", () => switchGalleryImage(-1));
+    }
+    if (lightboxNext) {
+      lightboxNext.addEventListener("click", () => switchGalleryImage(1));
+    }
 
     lightboxCloseButtons.forEach((button) => {
       button.addEventListener("click", closeLightbox);
     });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && lightbox && !lightbox.hidden) {
+      if (!lightbox || lightbox.hidden) {
+        return;
+      }
+      if (event.key === "Escape") {
         closeLightbox();
+      }
+      if (event.key === "ArrowLeft") {
+        switchGalleryImage(-1);
+      }
+      if (event.key === "ArrowRight") {
+        switchGalleryImage(1);
       }
     });
 

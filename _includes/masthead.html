@@ -1,4 +1,37 @@
 {% include base_path %}
+{% assign home = site.data.homepage %}
+{% assign sections = home.sections %}
+{% assign has_about = false %}
+{% if home.about and home.about.size > 0 %}
+  {% assign has_about = true %}
+{% endif %}
+{% if home.profile.researchInterests and home.profile.researchInterests.size > 0 %}
+  {% assign has_about = true %}
+{% endif %}
+{% assign has_news = false %}
+{% if home.news and home.news.size > 0 %}
+  {% assign has_news = true %}
+{% endif %}
+{% assign has_publications = false %}
+{% if home.publications and home.publications.size > 0 %}
+  {% assign has_publications = true %}
+{% endif %}
+{% assign has_education = false %}
+{% if home.education and home.education.size > 0 %}
+  {% assign has_education = true %}
+{% endif %}
+{% assign has_experience = false %}
+{% if home.experience and home.experience.size > 0 %}
+  {% assign has_experience = true %}
+{% endif %}
+{% assign has_service = false %}
+{% if home.service and home.service.size > 0 %}
+  {% assign has_service = true %}
+{% endif %}
+{% assign has_life = false %}
+{% if home.life and home.life.size > 0 %}
+  {% assign has_life = true %}
+{% endif %}
 
 <div class="masthead">
   <div class="masthead__inner-wrap">
@@ -7,13 +40,41 @@
         <button><div class="navicon"></div></button>
         <ul class="visible-links">
           <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="{{ base_path }}/">{{ site.title }}</a></li>
-          {% for link in site.data.navigation.main %}
-            {% if link.url contains 'http' %}
-              {% assign domain = '' %}
-            {% else %}
-              {% assign domain = base_path %}
+          {% if has_about %}
+            <li class="masthead__menu-item"><a href="{{ base_path }}/#about">{{ sections.about.title | default: "About" }}</a></li>
+          {% endif %}
+          {% if has_news %}
+            <li class="masthead__menu-item"><a href="{{ base_path }}/#news">{{ sections.news.title | default: "News" }}</a></li>
+          {% endif %}
+          {% if has_publications %}
+            <li class="masthead__menu-item"><a href="{{ base_path }}/#publications">{{ sections.publications.filteredTitle | default: sections.publications.title | default: "Publications" }}</a></li>
+          {% endif %}
+          {% if has_education %}
+            <li class="masthead__menu-item"><a href="{{ base_path }}/#education">{{ sections.education.title | default: "Education" }}</a></li>
+          {% endif %}
+          {% if has_experience %}
+            <li class="masthead__menu-item"><a href="{{ base_path }}/#experience">{{ sections.experience.title | default: "Experience" }}</a></li>
+          {% endif %}
+          {% if has_service %}
+            <li class="masthead__menu-item"><a href="{{ base_path }}/#service">{{ sections.service.title | default: "Academic Service" }}</a></li>
+          {% endif %}
+          {% if has_life %}
+            <li class="masthead__menu-item"><a href="{{ base_path }}/#life">{{ sections.life.title | default: "Life & Moments" }}</a></li>
+          {% endif %}
+          {% for link in home.links %}
+            {% if link.showInNav %}
+              {% assign link_url = link.url | default: "" %}
+              {% assign link_href = link_url %}
+              {% assign link_first_char = link_url | slice: 0, 1 %}
+              {% if link_url contains "://" or link_url contains "mailto:" or link_first_char == "#" %}
+                {% assign link_href = link_url %}
+              {% elsif link_first_char == "/" %}
+                {% assign link_href = link_url | prepend: base_path %}
+              {% else %}
+                {% assign link_href = link_url | prepend: "/" | prepend: base_path %}
+              {% endif %}
+              <li class="masthead__menu-item"><a href="{{ link_href | escape }}">{{ link.label }}</a></li>
             {% endif %}
-            <li class="masthead__menu-item"><a href="{{ domain }}{{ link.url }}">{{ link.title }}</a></li>
           {% endfor %}
           <li id="theme-toggle" class="masthead__menu-item persist tail">
             <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fas fa-sun" aria-hidden="true" title="toggle theme"></i></a>

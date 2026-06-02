@@ -71,7 +71,9 @@
   "links": [
     {
       "label": "Google Scholar",
-      "url": "https://scholar.google.com/citations?user=83dHPfMAAAAJ"
+      "url": "https://scholar.google.com/citations?user=83dHPfMAAAAJ",
+      "showInNav": true,
+      "showInPublicationsHeader": true
     },
     {
       "label": "OpenReview",
@@ -506,8 +508,10 @@
       "title": "ICLR 2026, Rio",
       "date": "2026.04",
       "description": "My first time in the Southern Hemisphere. Rio was dazzling, with a bit of edge.",
-      "image": "/images/rio.jpg",
-      "alt": "A Brazilian flag gifted by a vendor near the cathedral",
+      "images": [
+        { "src": "/images/rio.jpg", "alt": "A Brazilian flag gifted by a vendor near the cathedral" },
+        { "src": "/images/rio2.jpeg", "alt": "Rio from above, seen from a helicopter" }
+      ],
       "featured": true,
       "place": "Rio de Janeiro, Brazil",
       "coordinates": {
@@ -519,8 +523,10 @@
       "title": "Layover in Panama City",
       "date": "2026.04",
       "description": "A clean, warm city with friendly people. Mandarin helped me get discounted fridge magnets, feeling the warmth of the overseas Chinese community.",
-      "image": "/images/panama.jpg",
-      "alt": "A Chinese shop decorated with spring couplets",
+      "images": [
+        { "src": "/images/panama.jpg", "alt": "A Chinese shop decorated with spring couplets" },
+        { "src": "/images/panama2.jpg", "alt": "A ship passing through the famous Panama Canal" }
+      ],
       "featured": false,
       "place": "Panama City, Panama",
       "coordinates": {

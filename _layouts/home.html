@@ -6,6 +6,37 @@ layout: default
 {% assign home = site.data.homepage %}
 {% assign sections = home.sections %}
 {% assign profile_avatar = home.profile.avatar | default: "/images/profile.png" %}
+{% assign has_about = false %}
+{% if home.about and home.about.size > 0 %}
+  {% assign has_about = true %}
+{% endif %}
+{% if home.profile.researchInterests and home.profile.researchInterests.size > 0 %}
+  {% assign has_about = true %}
+{% endif %}
+{% assign has_news = false %}
+{% if home.news and home.news.size > 0 %}
+  {% assign has_news = true %}
+{% endif %}
+{% assign has_publications = false %}
+{% if home.publications and home.publications.size > 0 %}
+  {% assign has_publications = true %}
+{% endif %}
+{% assign has_education = false %}
+{% if home.education and home.education.size > 0 %}
+  {% assign has_education = true %}
+{% endif %}
+{% assign has_experience = false %}
+{% if home.experience and home.experience.size > 0 %}
+  {% assign has_experience = true %}
+{% endif %}
+{% assign has_service = false %}
+{% if home.service and home.service.size > 0 %}
+  {% assign has_service = true %}
+{% endif %}
+{% assign has_life = false %}
+{% if home.life and home.life.size > 0 %}
+  {% assign has_life = true %}
+{% endif %}
 
 <script id="homepage-data" type="application/json">{{ home | jsonify }}</script>
 
@@ -48,41 +79,57 @@ layout: default
   </section>
 
   <nav class="home-jump-nav" aria-label="Home sections">
-    <a href="#about">{{ sections.about.title | default: "About" }}</a>
-    <a href="#news">{{ sections.news.title | default: "News" }}</a>
-    <a href="#publications">{{ sections.publications.filteredTitle | default: sections.publications.title | default: "Publications" }}</a>
-    <a href="#education">{{ sections.education.title | default: "Education" }}</a>
-    <a href="#experience">{{ sections.experience.title | default: "Experience" }}</a>
-    <a href="#service">{{ sections.service.title | default: "Academic Service" }}</a>
-    <a href="#life">{{ sections.life.title | default: "Life & Moments" }}</a>
+    {% if has_about %}
+      <a href="#about">{{ sections.about.title | default: "About" }}</a>
+    {% endif %}
+    {% if has_news %}
+      <a href="#news">{{ sections.news.title | default: "News" }}</a>
+    {% endif %}
+    {% if has_publications %}
+      <a href="#publications">{{ sections.publications.filteredTitle | default: sections.publications.title | default: "Publications" }}</a>
+    {% endif %}
+    {% if has_education %}
+      <a href="#education">{{ sections.education.title | default: "Education" }}</a>
+    {% endif %}
+    {% if has_experience %}
+      <a href="#experience">{{ sections.experience.title | default: "Experience" }}</a>
+    {% endif %}
+    {% if has_service %}
+      <a href="#service">{{ sections.service.title | default: "Academic Service" }}</a>
+    {% endif %}
+    {% if has_life %}
+      <a href="#life">{{ sections.life.title | default: "Life & Moments" }}</a>
+    {% endif %}
   </nav>
 
-  <section class="home-section home-about" id="about" aria-labelledby="about-heading" style="--section-title-size: {{ sections.about.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.about.bodyFontSize | default: '1rem' | escape }};">
-    <div class="home-section__header">
-      {% assign about_kicker = "About" %}
-      {% if sections.about.kicker != nil %}
-        {% assign about_kicker = sections.about.kicker %}
-      {% endif %}
-      {% if about_kicker != "" %}
-        <p class="home-section__kicker">{{ about_kicker }}</p>
-      {% endif %}
-      <h2 id="about-heading">{% if sections.about.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.about.emoji }}</span>{% endif %}<span>{{ sections.about.title | default: "About Me" }}</span></h2>
-    </div>
-    <div class="home-about__body">
-      {% for paragraph in home.about %}
-        <p>{{ paragraph }}</p>
-      {% endfor %}
-      {% if home.profile.researchInterests and home.profile.researchInterests.size > 0 %}
-        <div class="home-tags" aria-label="Research interests">
-          {% for interest in home.profile.researchInterests %}
-            <span>{{ interest }}</span>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
-  </section>
+  {% if has_about %}
+    <section class="home-section home-about" id="about" aria-labelledby="about-heading" style="--section-title-size: {{ sections.about.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.about.bodyFontSize | default: '1rem' | escape }};">
+      <div class="home-section__header">
+        {% assign about_kicker = "About" %}
+        {% if sections.about.kicker != nil %}
+          {% assign about_kicker = sections.about.kicker %}
+        {% endif %}
+        {% if about_kicker != "" %}
+          <p class="home-section__kicker">{{ about_kicker }}</p>
+        {% endif %}
+        <h2 id="about-heading">{% if sections.about.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.about.emoji }}</span>{% endif %}<span>{{ sections.about.title | default: "About Me" }}</span></h2>
+      </div>
+      <div class="home-about__body">
+        {% for paragraph in home.about %}
+          <p>{{ paragraph }}</p>
+        {% endfor %}
+        {% if home.profile.researchInterests and home.profile.researchInterests.size > 0 %}
+          <div class="home-tags" aria-label="Research interests">
+            {% for interest in home.profile.researchInterests %}
+              <span>{{ interest }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
 
-  {% if home.news and home.news.size > 0 %}
+  {% if has_news %}
     <section class="home-section" id="news" aria-labelledby="news-heading" style="--section-title-size: {{ sections.news.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.news.bodyFontSize | default: '1rem' | escape }};">
       <div class="home-section__header">
         {% assign news_kicker = "Updates" %}
@@ -109,133 +156,149 @@ layout: default
     </section>
   {% endif %}
 
-  <section class="home-section" id="publications" aria-labelledby="publications-heading" style="--section-title-size: {{ sections.publications.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.publications.bodyFontSize | default: '1rem' | escape }};">
-    <div class="home-section__header home-section__header--split">
-      <div>
-        {% assign publications_kicker = "Research" %}
-        {% if sections.publications.kicker != nil %}
-          {% assign publications_kicker = sections.publications.kicker %}
-        {% endif %}
-        {% if publications_kicker != "" %}
-          <p class="home-section__kicker">{{ publications_kicker }}</p>
-        {% endif %}
-        <h2 id="publications-heading" data-default-title="{{ sections.publications.title | default: 'Featured Publications' | escape }}" data-filtered-title="{{ sections.publications.filteredTitle | default: 'Publications' | escape }}">{% if sections.publications.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.publications.emoji }}</span>{% endif %}<span data-publication-title-text>{{ sections.publications.title | default: "Featured Publications" }}</span></h2>
-      </div>
-      <a class="home-section__link" href="https://scholar.google.com/citations?user=83dHPfMAAAAJ">Google Scholar</a>
-    </div>
-
-    <div class="home-publication-tools" aria-label="Publication filters">
-      <label>
-        <span>Search</span>
-        <input type="search" class="publication-search" placeholder="Title, author, venue, tag">
-      </label>
-      <label>
-        <span>Year</span>
-        <select class="publication-filter" data-filter="year">
-          <option value="">All years</option>
-        </select>
-      </label>
-      <label>
-        <span>Venue</span>
-        <select class="publication-filter" data-filter="venue">
-          <option value="">All venues</option>
-        </select>
-      </label>
-      <label>
-        <span>Tag</span>
-        <select class="publication-filter" data-filter="tag">
-          <option value="">All tags</option>
-        </select>
-      </label>
-    </div>
-    <p class="home-publication-count" aria-live="polite"></p>
-
-    <div class="home-publications">
-      {% for paper in home.publications %}
-        {% assign tags = paper.tags | join: ', ' %}
-        <article class="home-publication{% if paper.featured %} home-publication--featured{% endif %}" data-publication data-featured="{{ paper.featured }}" data-title="{{ paper.title | downcase | escape }}" data-authors="{{ paper.authors | downcase | escape }}" data-year="{{ paper.year | escape }}" data-venue="{{ paper.venue | escape }}" data-tags="{{ tags | escape }}">
-          <div class="home-publication__meta">
-            <span>{{ paper.venue }}</span>
-            <span>{{ paper.year }}</span>
-            {% if paper.featured %}
-              <strong>Featured</strong>
-            {% endif %}
-          </div>
-          <h3>
-            {% if paper.url %}
-              <a href="{{ paper.url }}">{{ paper.title }}</a>
+  {% if has_publications %}
+    <section class="home-section" id="publications" aria-labelledby="publications-heading" style="--section-title-size: {{ sections.publications.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.publications.bodyFontSize | default: '1rem' | escape }};">
+      <div class="home-section__header home-section__header--split">
+        <div>
+          {% assign publications_kicker = "Research" %}
+          {% if sections.publications.kicker != nil %}
+            {% assign publications_kicker = sections.publications.kicker %}
+          {% endif %}
+          {% if publications_kicker != "" %}
+            <p class="home-section__kicker">{{ publications_kicker }}</p>
+          {% endif %}
+          <h2 id="publications-heading" data-default-title="{{ sections.publications.title | default: 'Featured Publications' | escape }}" data-filtered-title="{{ sections.publications.filteredTitle | default: 'Publications' | escape }}">{% if sections.publications.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.publications.emoji }}</span>{% endif %}<span data-publication-title-text>{{ sections.publications.title | default: "Featured Publications" }}</span></h2>
+        </div>
+        {% for link in home.links %}
+          {% if link.showInPublicationsHeader %}
+            {% assign link_url = link.url | default: "" %}
+            {% assign link_href = link_url %}
+            {% assign link_first_char = link_url | slice: 0, 1 %}
+            {% if link_url contains "://" or link_url contains "mailto:" or link_first_char == "#" %}
+              {% assign link_href = link_url %}
+            {% elsif link_first_char == "/" %}
+              {% assign link_href = link_url | prepend: base_path %}
             {% else %}
-              {{ paper.title }}
+              {% assign link_href = link_url | prepend: "/" | prepend: base_path %}
             {% endif %}
-          </h3>
-          <p class="home-publication__authors">{{ paper.authors }}</p>
-          {% if paper.summary %}
-            <p class="home-publication__summary">{{ paper.summary }}</p>
+            <a class="home-section__link" href="{{ link_href | escape }}">{{ link.label }}</a>
           {% endif %}
-          {% if paper.tags and paper.tags.size > 0 %}
-            <div class="home-tags home-tags--small" aria-label="Publication tags">
-              {% for tag in paper.tags %}
-                <span>{{ tag }}</span>
-              {% endfor %}
-            </div>
-          {% endif %}
-          <div class="home-publication__links">
-            {% if paper.url %}
-              <a href="{{ paper.url }}">Paper</a>
-            {% endif %}
-            {% if paper.codeUrl and paper.codeUrl != "" %}
-              <a href="{{ paper.codeUrl }}">Code</a>
-            {% endif %}
-            {% if paper.details.quickTake or paper.details.whyItMatters or paper.details.bibtex or paper.details.links %}
-              <button class="home-publication__details-toggle" type="button" aria-expanded="false" aria-controls="publication-details-{{ forloop.index }}">
-                Details
-              </button>
-            {% endif %}
-          </div>
-          {% if paper.details.quickTake or paper.details.whyItMatters or paper.details.bibtex or paper.details.links %}
-            <div class="home-publication__details" id="publication-details-{{ forloop.index }}" hidden>
-              {% if paper.details.quickTake %}
-                <div class="home-publication__detail-block">
-                  <h4>30-sec summary</h4>
-                  <p>{{ paper.details.quickTake | escape | replace: '\n', '<br>' | newline_to_br }}</p>
-                </div>
-              {% endif %}
-              {% if paper.details.whyItMatters %}
-                <div class="home-publication__detail-block">
-                  <h4>Why it matters</h4>
-                  <p>{{ paper.details.whyItMatters | escape | replace: '\n', '<br>' | newline_to_br }}</p>
-                </div>
-              {% endif %}
-              {% if paper.details.bibtex %}
-                <div class="home-publication__detail-block">
-                  <div class="home-publication__bibtex-header">
-                    <h4>BibTeX</h4>
-                    <button class="home-publication__copy" type="button" data-copy-target="publication-bibtex-{{ forloop.index }}">Copy</button>
-                  </div>
-                  <pre id="publication-bibtex-{{ forloop.index }}"><code>{{ paper.details.bibtex | escape }}</code></pre>
-                </div>
-              {% endif %}
-              {% if paper.details.links and paper.details.links.size > 0 %}
-                <div class="home-publication__detail-block">
-                  <h4>More links</h4>
-                  <div class="home-publication__links home-publication__links--detail">
-                    {% for detail_link in paper.details.links %}
-                      {% if detail_link.url and detail_link.label %}
-                        <a href="{{ detail_link.url | escape }}">{{ detail_link.label | escape }}</a>
-                      {% endif %}
-                    {% endfor %}
-                  </div>
-                </div>
-              {% endif %}
-            </div>
-          {% endif %}
-        </article>
-      {% endfor %}
-    </div>
-    <p class="home-publications__empty" hidden>No publications match the current filters.</p>
-  </section>
+        {% endfor %}
+      </div>
 
-  {% if home.education and home.education.size > 0 %}
+      <div class="home-publication-tools" aria-label="Publication filters">
+        <label>
+          <span>Search</span>
+          <input type="search" class="publication-search" placeholder="Title, author, venue, tag">
+        </label>
+        <label>
+          <span>Year</span>
+          <select class="publication-filter" data-filter="year">
+            <option value="">All years</option>
+          </select>
+        </label>
+        <label>
+          <span>Venue</span>
+          <select class="publication-filter" data-filter="venue">
+            <option value="">All venues</option>
+          </select>
+        </label>
+        <label>
+          <span>Tag</span>
+          <select class="publication-filter" data-filter="tag">
+            <option value="">All tags</option>
+          </select>
+        </label>
+      </div>
+      <p class="home-publication-count" aria-live="polite"></p>
+
+      <div class="home-publications">
+        {% for paper in home.publications %}
+          {% assign tags = paper.tags | join: ', ' %}
+          <article class="home-publication{% if paper.featured %} home-publication--featured{% endif %}" data-publication data-featured="{{ paper.featured }}" data-title="{{ paper.title | downcase | escape }}" data-authors="{{ paper.authors | downcase | escape }}" data-year="{{ paper.year | escape }}" data-venue="{{ paper.venue | escape }}" data-tags="{{ tags | escape }}">
+            <div class="home-publication__meta">
+              <span>{{ paper.venue }}</span>
+              <span>{{ paper.year }}</span>
+              {% if paper.featured %}
+                <strong>Featured</strong>
+              {% endif %}
+            </div>
+            <h3>
+              {% if paper.url %}
+                <a href="{{ paper.url }}">{{ paper.title }}</a>
+              {% else %}
+                {{ paper.title }}
+              {% endif %}
+            </h3>
+            <p class="home-publication__authors">{{ paper.authors }}</p>
+            {% if paper.summary %}
+              <p class="home-publication__summary">{{ paper.summary }}</p>
+            {% endif %}
+            {% if paper.tags and paper.tags.size > 0 %}
+              <div class="home-tags home-tags--small" aria-label="Publication tags">
+                {% for tag in paper.tags %}
+                  <span>{{ tag }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+            <div class="home-publication__links">
+              {% if paper.url %}
+                <a href="{{ paper.url }}">Paper</a>
+              {% endif %}
+              {% if paper.codeUrl and paper.codeUrl != "" %}
+                <a href="{{ paper.codeUrl }}">Code</a>
+              {% endif %}
+              {% if paper.details.quickTake or paper.details.whyItMatters or paper.details.bibtex or paper.details.links %}
+                <button class="home-publication__details-toggle" type="button" aria-expanded="false" aria-controls="publication-details-{{ forloop.index }}">
+                  Details
+                </button>
+              {% endif %}
+            </div>
+            {% if paper.details.quickTake or paper.details.whyItMatters or paper.details.bibtex or paper.details.links %}
+              <div class="home-publication__details" id="publication-details-{{ forloop.index }}" hidden>
+                {% if paper.details.quickTake %}
+                  <div class="home-publication__detail-block">
+                    <h4>30-sec summary</h4>
+                    <p>{{ paper.details.quickTake | escape | replace: '\n', '<br>' | newline_to_br }}</p>
+                  </div>
+                {% endif %}
+                {% if paper.details.whyItMatters %}
+                  <div class="home-publication__detail-block">
+                    <h4>Why it matters</h4>
+                    <p>{{ paper.details.whyItMatters | escape | replace: '\n', '<br>' | newline_to_br }}</p>
+                  </div>
+                {% endif %}
+                {% if paper.details.bibtex %}
+                  <div class="home-publication__detail-block">
+                    <div class="home-publication__bibtex-header">
+                      <h4>BibTeX</h4>
+                      <button class="home-publication__copy" type="button" data-copy-target="publication-bibtex-{{ forloop.index }}">Copy</button>
+                    </div>
+                    <pre id="publication-bibtex-{{ forloop.index }}"><code>{{ paper.details.bibtex | escape }}</code></pre>
+                  </div>
+                {% endif %}
+                {% if paper.details.links and paper.details.links.size > 0 %}
+                  <div class="home-publication__detail-block">
+                    <h4>More links</h4>
+                    <div class="home-publication__links home-publication__links--detail">
+                      {% for detail_link in paper.details.links %}
+                        {% if detail_link.url and detail_link.label %}
+                          <a href="{{ detail_link.url | escape }}">{{ detail_link.label | escape }}</a>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+      <p class="home-publications__empty" hidden>No publications match the current filters.</p>
+    </section>
+  {% endif %}
+
+  {% if has_education %}
     <section class="home-section" id="education" aria-labelledby="education-heading" style="--section-title-size: {{ sections.education.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.education.bodyFontSize | default: '1rem' | escape }};">
       <div class="home-section__header">
         {% assign education_kicker = "Training" %}
@@ -274,7 +337,7 @@ layout: default
     </section>
   {% endif %}
 
-  {% if home.experience and home.experience.size > 0 %}
+  {% if has_experience %}
     <section class="home-section" id="experience" aria-labelledby="experience-heading" style="--section-title-size: {{ sections.experience.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.experience.bodyFontSize | default: '1rem' | escape }};">
       <div class="home-section__header">
         {% assign experience_kicker = "Work" %}
@@ -303,7 +366,7 @@ layout: default
     </section>
   {% endif %}
 
-  {% if home.service and home.service.size > 0 %}
+  {% if has_service %}
     <section class="home-section" id="service" aria-labelledby="service-heading" style="--section-title-size: {{ sections.service.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.service.bodyFontSize | default: '1rem' | escape }};">
       <div class="home-section__header">
         {% assign service_kicker = "Service" %}
@@ -328,7 +391,7 @@ layout: default
     </section>
   {% endif %}
 
-  {% if home.life and home.life.size > 0 %}
+  {% if has_life %}
     <section class="home-section" id="life" aria-labelledby="life-heading" style="--section-title-size: {{ sections.life.titleFontSize | default: '1.65rem' | escape }}; --section-body-size: {{ sections.life.bodyFontSize | default: '1rem' | escape }};">
       <div class="home-section__header">
         {% assign life_kicker = "Beyond Research" %}
@@ -340,25 +403,30 @@ layout: default
         {% endif %}
         <h2 id="life-heading">{% if sections.life.emoji %}<span class="home-section__emoji" aria-hidden="true">{{ sections.life.emoji }}</span>{% endif %}<span>{{ sections.life.title | default: "Life & Moments" }}</span></h2>
       </div>
-      <div class="home-life-map" id="life-map" data-life-view="map">
+      <div class="home-life-map" id="life-map" data-life-view="map" data-base-path="{{ base_path }}">
         <div class="home-life-map__stage" aria-label="Life moments map" style="--map-marker-size: {{ sections.life.mapMarkerSize | default: '0.72rem' | escape }};">
           <div class="home-life-map__details" aria-live="polite">
             {% for item in home.life %}
               <article class="home-life-map__detail{% if item.featured %} home-life-map__detail--featured{% endif %}" data-map-detail data-life-index="{{ forloop.index0 }}" hidden>
-                {% assign image_src = item.image | default: "" %}
+                {% assign gallery_image = nil %}
+                {% if item.images and item.images.size > 0 %}
+                  {% assign gallery_image = item.images | first %}
+                {% endif %}
+                {% assign image_src = gallery_image.src | default: gallery_image.image | default: gallery_image.url | default: item.image | default: "" %}
+                {% assign image_alt = gallery_image.alt | default: item.alt | default: item.title %}
                 {% if image_src != "" %}
                   {% assign first_char = image_src | slice: 0, 1 %}
                   {% if image_src contains "://" %}
-                    <button class="home-life-map__detail-image" type="button" data-map-image data-image-src="{{ image_src | escape }}" aria-label="View larger image for {{ item.title | escape }}">
-                      <img src="{{ image_src }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
+                    <button class="home-life-map__detail-image" type="button" data-map-image data-life-index="{{ forloop.index0 }}" data-image-index="0" data-image-src="{{ image_src | escape }}" aria-label="View larger image for {{ item.title | escape }}">
+                      <img src="{{ image_src }}" alt="{{ image_alt | escape }}" loading="lazy">
                     </button>
                   {% elsif first_char == "/" %}
-                    <button class="home-life-map__detail-image" type="button" data-map-image data-image-src="{{ image_src | prepend: base_path | escape }}" aria-label="View larger image for {{ item.title | escape }}">
-                      <img src="{{ image_src | prepend: base_path }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
+                    <button class="home-life-map__detail-image" type="button" data-map-image data-life-index="{{ forloop.index0 }}" data-image-index="0" data-image-src="{{ image_src | prepend: base_path | escape }}" aria-label="View larger image for {{ item.title | escape }}">
+                      <img src="{{ image_src | prepend: base_path }}" alt="{{ image_alt | escape }}" loading="lazy">
                     </button>
                   {% else %}
-                    <button class="home-life-map__detail-image" type="button" data-map-image data-image-src="{{ image_src | prepend: '/' | prepend: base_path | escape }}" aria-label="View larger image for {{ item.title | escape }}">
-                      <img src="{{ image_src | prepend: '/' | prepend: base_path }}" alt="{{ item.alt | default: item.title | escape }}" loading="lazy">
+                    <button class="home-life-map__detail-image" type="button" data-map-image data-life-index="{{ forloop.index0 }}" data-image-index="0" data-image-src="{{ image_src | prepend: '/' | prepend: base_path | escape }}" aria-label="View larger image for {{ item.title | escape }}">
+                      <img src="{{ image_src | prepend: '/' | prepend: base_path }}" alt="{{ image_alt | escape }}" loading="lazy">
                     </button>
                   {% endif %}
                 {% endif %}
@@ -429,8 +497,13 @@ layout: default
       <div class="home-life-lightbox" data-life-lightbox hidden>
         <button class="home-life-lightbox__backdrop" type="button" data-life-lightbox-close aria-label="Close enlarged image"></button>
         <figure>
-          <img src="" alt="" data-life-lightbox-image>
+          <div class="home-life-lightbox__frame">
+            <button class="home-life-lightbox__nav home-life-lightbox__nav--prev" type="button" data-life-image-prev aria-label="Previous image">&lt;</button>
+            <img src="" alt="" data-life-lightbox-image>
+            <button class="home-life-lightbox__nav home-life-lightbox__nav--next" type="button" data-life-image-next aria-label="Next image">&gt;</button>
+          </div>
           <figcaption data-life-lightbox-caption></figcaption>
+          <div class="home-life-lightbox__counter" data-life-image-count hidden>1 / 1</div>
         </figure>
         <button class="home-life-lightbox__close" type="button" data-life-lightbox-close aria-label="Close enlarged image">×</button>
       </div>
