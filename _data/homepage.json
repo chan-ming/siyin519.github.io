@@ -98,6 +98,11 @@
   ],
   "news": [
     {
+      "date": "2026.06",
+      "text": "One co-authored paper is accepted by Interspeech 2026.",
+      "url": "https://arxiv.org/abs/2511.02270"
+    },
+    {
       "date": "2026.05",
       "text": "Our review paper on audio LLMs is accepted in principle by Nature Machine Intelligence.",
       "url": "https://arxiv.org/abs/2511.01299"
@@ -119,6 +124,30 @@
     }
   ],
   "publications": [
+    {
+      "title": "Augmenting Dysarthric Speech Severity Assessment with MOS Supervision",
+      "authors": "Kaimeng Jia, Minzhu Tu, Zengrui Jin, Siyin Wang, Chao Zhang",
+      "venue": "Interspeech 2026",
+      "year": "2026",
+      "summary": "A study showing how human perceptual supervision from speech quality assessment can improve dysarthric speech severity assessment.",
+      "details": {
+        "quickTake": "This paper investigates automatic dysarthric speech severity assessment on open-vocabulary utterances, leveraging human-annotated perceptual ratings from speech synthesis quality assessment as out-of-domain supervision.",
+        "whyItMatters": "It shows that perceptual annotations aligned with human listening judgments can transfer across domains, improving intelligibility and naturalness prediction for dysarthric speech with self-supervised speech encoders.",
+        "bibtex": "@inproceedings{sacred,\n  title={Augmenting Dysarthric Speech Severity Assessment with MOS Supervision},\n  author={Jia, Kaimeng and Tu, Minzhu and Jin, Zengrui and Wang, Siyin and Zhang, Chao},\n  booktitle={Proc. Interspeech},\n  year={2026},\n  address={Sydney}\n}",
+        "links": [
+          {
+            "label": "arXiv",
+            "url": "https://arxiv.org/abs/2511.02270"
+          }
+        ]
+      },
+      "url": "https://arxiv.org/pdf/2511.02270",
+      "codeUrl": "",
+      "tags": [
+        "Speech Quality"
+      ],
+      "featured": false
+    },
     {
       "title": "Towards General Auditory Intelligence: Large Multimodal Models for Machine Listening and Speaking",
       "authors": "Siyin Wang*, Zengrui Jin*, Changli Tang, Qiujia Li, Bo Li, Chen Chen, Yuchen Hu, Wenyi Yu, Yixuan Li, Jimin Zhuang, Yudong Yang, Mingqiu Wang, Michael Han, Yifan Ding, Junwen Bai, Tom Ouyang, Shuo-yiin Chang, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Lu Lu, Guangzhi Sun, Zhehuai Chen, Ji Wu, Bowen Zhou, Yuxuan Wang, Tara Sainath, Yonghui Wu, Chao Zhang",
@@ -374,6 +403,19 @@
     }
   ],
   "life": [
+    {
+      "title": "Birth",
+      "date": "2001.05",
+      "description": "Jiaohe, my hometown, a small city in Northeast China where I was born and raised.",
+      "image": "/images/jiaohe.jpg",
+      "alt": "Sunset over Songhua Lake, with blue silhouettes of distant mountains. October 2025.",
+      "featured": true,
+      "place": "Jiaohe, Jilin, China",
+      "coordinates": {
+        "lat": 43.7239,
+        "lng": 127.3448
+      }
+    },
     {
       "title": "Beijing Winter Olympics",
       "date": "2022.02",
