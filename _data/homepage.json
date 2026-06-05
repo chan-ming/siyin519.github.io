@@ -407,8 +407,14 @@
       "title": "Birth",
       "date": "2001.05",
       "description": "Jiaohe, my hometown, a small city in Northeast China where I was born and raised.",
-      "image": "/images/jiaohe.jpg",
-      "alt": "Sunset over Songhua Lake, with blue silhouettes of distant mountains. October 2025.",
+      "images": [
+        {
+          "src": "/images/jiaohe.jpg", "alt": "Sunset over Songhua Lake, with blue silhouettes of distant mountains. October 2025."
+        },
+        {
+          "src": "/images/family.jpg", "alt": "Family photo, 2020."
+        }
+      ],
       "featured": true,
       "place": "Jiaohe, Jilin, China",
       "coordinates": {
