@@ -98,14 +98,14 @@
   ],
   "news": [
     {
+      "date": "2026.08",
+      "text": "Our review paper on audio LLMs is accepted by Nature Machine Intelligence.",
+      "url": "https://www.nature.com/articles/s42256-026-01281-1"
+    },
+    {
       "date": "2026.06",
       "text": "One co-authored paper is accepted by Interspeech 2026.",
       "url": "https://arxiv.org/abs/2511.02270"
-    },
-    {
-      "date": "2026.05",
-      "text": "Our review paper on audio LLMs is accepted in principle by Nature Machine Intelligence.",
-      "url": "https://arxiv.org/abs/2511.01299"
     },
     {
       "date": "2026.01",
@@ -151,7 +151,7 @@
     {
       "title": "Towards General Auditory Intelligence: Large Multimodal Models for Machine Listening and Speaking",
       "authors": "Siyin Wang*, Zengrui Jin*, Changli Tang, Qiujia Li, Bo Li, Chen Chen, Yuchen Hu, Wenyi Yu, Yixuan Li, Jimin Zhuang, Yudong Yang, Mingqiu Wang, Michael Han, Yifan Ding, Junwen Bai, Tom Ouyang, Shuo-yiin Chang, Xianzhao Chen, Xiaohai Tian, Jun Zhang, Lu Lu, Guangzhi Sun, Zhehuai Chen, Ji Wu, Bowen Zhou, Yuxuan Wang, Tara Sainath, Yonghui Wu, Chao Zhang",
-      "venue": "Nature Machine Intelligence (accepted in principle)",
+      "venue": "Nature Machine Intelligence",
       "year": "2026",
       "summary": "A comprehensive review of LLMs for audio modalities, corperated with Google DeepMind and Nvidia.",
       "details": {
@@ -165,7 +165,7 @@
           }
         ]
       },
-      "url": "https://arxiv.org/pdf/2511.01299",
+      "url": "https://www.nature.com/articles/s42256-026-01281-1",
       "codeUrl": "",
       "tags": [
         "Audio LLMs"
