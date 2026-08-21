@@ -99,6 +99,11 @@
   "news": [
     {
       "date": "2026.08",
+      "text": "One co-authored paper is accepted as EMNLP 2026 Findings.",
+      "url": "https://arxiv.org/abs/2606.02615"
+    },
+    {
+      "date": "2026.08",
       "text": "Our review paper on audio LLMs is accepted by Nature Machine Intelligence.",
       "url": "https://www.nature.com/articles/s42256-026-01281-1"
     },
@@ -116,14 +121,34 @@
       "date": "2025.09",
       "text": "SALMONN-omni is accepted by NeurIPS 2025.",
       "url": "https://openreview.net/forum?id=AsRB5nmlOD"
-    },
-    {
-      "date": "2025.05",
-      "text": "QualiSpeech is accepted by ACL 2025.",
-      "url": "https://aclanthology.org/2025.acl-long.1150/"
     }
   ],
   "publications": [
+    {
+      "title": "FSA-GRPO: Teaching Auditory LLMs to Use Few-shot Demonstrations",
+      "authors": "Haolong Zheng, Siyin Wang, Xulin Fan, Zengrui Jin, Mark Hasegawa-Johnson",
+      "venue": "EMNLP 2026 Findings",
+      "year": "2026",
+      "summary": "An RL post-training method that teaches auditory LLMs to better use few-shot demonstrations for low-resource speech and audio tasks.",
+      "details": {
+        "quickTake": "FSA-GRPO combines an ASR accuracy reward with a semantic-alignment reward that encourages auditory LLMs to use relevant in-context examples. Trained only on high-resource English adult speech, it improves few-shot adaptation for children's ASR, multilingual ASR, speech translation, and audio understanding while largely preserving zero-shot performance.",
+        "whyItMatters": "It offers a practical way to adapt auditory LLMs when labeled in-domain data are scarce, private, or unavailable. The method outperforms direct tuning on related out-of-domain data in low-resource child ASR and transfers across both tasks and model families.",
+        "bibtex": "@inproceedings{fsa_grpo,\n  title={FSA-GRPO: Teaching Auditory LLMs to Use Few-shot Demonstrations},\n  author={Zheng, Haolong and Wang, Siyin and Fan, Xulin and Jin, Zengrui and Hasegawa-Johnson, Mark},\n  booktitle={Findings of EMNLP},\n  year={2026}\n, address={Budapest}}",
+        "links": [
+          {
+            "label": "arXiv",
+            "url": "https://arxiv.org/abs/2606.02615"
+          }
+        ]
+      },
+      "url": "https://arxiv.org/pdf/2606.02615",
+      "codeUrl": "",
+      "tags": [
+        "Audio LLMs",
+        "In-Context Learning"
+      ],
+      "featured": false
+    },
     {
       "title": "Augmenting Dysarthric Speech Severity Assessment with MOS Supervision",
       "authors": "Kaimeng Jia, Minzhu Tu, Zengrui Jin, Siyin Wang, Chao Zhang",
